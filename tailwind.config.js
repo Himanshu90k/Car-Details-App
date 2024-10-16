@@ -16,12 +16,14 @@ export default {
         customGrey: '#4D4D4D',
         customRed: '#E03F3F',
         cardBlue: '#3B8CCF',
+        yearRed: 'rgba(224, 63, 63, 0.90)',
       },
       fontSize: {
         'xxs': '10px',
         '3.25xl': '2rem',
       },
       width: {
+        9: '2.25rem',
         22: '5.5rem',
         38: '9.5rem',
         60: '15rem',
@@ -40,9 +42,14 @@ export default {
       },
       boxShadow: {
         cardShadow: '4px 3px 8.1px 0px rgba(0, 0, 0, 0.26)',
+        yearShadow: '-5px 5px 4.5px 0px rgba(0, 0, 0, 0.31)',
       },
       spacing: {
-        '87': '87%',
+        '6.5': '25px',
+      },
+      gap: {
+        8.5: '34px',
+        10.5: '42px',
       },
     },
   },

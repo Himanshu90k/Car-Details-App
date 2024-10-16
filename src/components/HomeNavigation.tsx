@@ -1,3 +1,5 @@
+import MonthCard from "./MonthCard"
+
 const HomeNavigation = () => {
     return (
         <nav className="flex justify-center items-center gap-8 mt-4">
@@ -27,7 +29,10 @@ const HomeNavigation = () => {
 
             {/* date navigation */}
 
-            <p className="font-inter text-base font-medium">10th October</p>
+            <p className="font-inter text-base font-medium relative">
+                10th October
+                <MonthCard />
+            </p>
             
             {/* right navigation */}
             <svg 

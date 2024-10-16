@@ -1,6 +1,6 @@
 const HomeFooter = () => {
     return (
-        <div className="flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed top-87">
+        <div className="flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed bottom-2">
             {/* list link */}
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
