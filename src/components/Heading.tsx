@@ -1,4 +1,4 @@
-const Heading = () => {
+const Heading: React.FC = () => {
     return (
         <div className="flex flex-col items-center mt-3">
             <h1 className="text-customBlue font-montserrat text-3.25xl font-bold">CAR DETAILS</h1>

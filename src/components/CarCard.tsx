@@ -1,8 +1,8 @@
-interface HomeCardProps {
+interface CarCardProps {
     color: string
 }
 
-const HomeCard: React.FC<HomeCardProps> = ({color}) => {
+const CarCard: React.FC<CarCardProps> = ({color}) => {
     const bgColor = color === 'cardBlue'? 'bg-cardBlue': 'bg-customGreen'
 
     return (
@@ -52,4 +52,4 @@ const HomeCard: React.FC<HomeCardProps> = ({color}) => {
     )
 }
 
-export default HomeCard
+export default CarCard

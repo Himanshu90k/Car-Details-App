@@ -1,4 +1,4 @@
-const SearchBar = () => {
+const SearchBar: React.FC = () => {
     return (
         <div className="flex justify-center mt-8">
             <form className=" flex justify-center items-center gap-5 border-2 border-solid border-customBlue rounded-45 w-84 h-11.25">

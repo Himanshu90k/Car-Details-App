@@ -1,4 +1,4 @@
-const HomeFooter = () => {
+const HomeFooter: React.FC = () => {
     return (
         <div className="flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed bottom-2">
             {/* list link */}

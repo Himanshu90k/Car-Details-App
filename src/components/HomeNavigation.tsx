@@ -1,63 +1,19 @@
+import LeftDateNavigationButton from "./LeftDateNavigationButton"
 import MonthCard from "./MonthCard"
+import RightDateNavigationButton from "./RightDateNavigationButton"
 
-const HomeNavigation = () => {
+const HomeNavigation: React.FC = () => {
     return (
         <nav className="flex justify-center items-center gap-8 mt-4">
-            {/* left navigation button */}
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="40" height="40" 
-                viewBox="0 0 40 40" 
-                fill="none"
-            >
-                <path 
-                    d="M20 2.5
-                    C16.5388 2.5 13.1554 3.52636 10.2775 5.44928
-                    C7.39967 7.37221 5.15665 10.1053 3.83212 13.303
-                    C2.50758 16.5007 2.16102 20.0194 2.83627 23.4141
-                    C3.51151 26.8087 5.17822 29.9269 7.62564 32.3744
-                    C10.0731 34.8218 13.1913 36.4885 16.5859 37.1637
-                    C19.9806 37.839 23.4993 37.4924 26.697 36.1679
-                    C29.8947 34.8434 32.6278 32.6003 34.5507 29.7225
-                    C36.4737 26.8446 37.5 23.4612 37.5 20
-                    C37.5 15.3587 35.6563 10.9075 32.3744 7.62563
-                    C29.0925 4.34374 24.6413 2.5 20 2.5
-                    ZM30 21.25H14.8125L21.7875 28.2162L20 30L10 20L20 10L21.7875 11.7412L14.8125 18.75H30V21.25Z" 
-                    fill="black"
-                />
-            </svg>
 
+            <LeftDateNavigationButton />
             {/* date navigation */}
-
             <p className="font-inter text-base font-medium relative">
                 10th October
                 <MonthCard />
             </p>
+            <RightDateNavigationButton />
             
-            {/* right navigation */}
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="40" 
-                height="40" 
-                viewBox="0 0 40 40" 
-                fill="none"
-            >
-                <path 
-                    d="M2.5 20
-                    C2.5 23.4612 3.52636 26.8446 5.44928 29.7225
-                    C7.37221 32.6003 10.1053 34.8434 13.303 36.1679
-                    C16.5007 37.4924 20.0194 37.839 23.4141 37.1637
-                    C26.8087 36.4885 29.9269 34.8218 32.3744 32.3744
-                    C34.8218 29.9269 36.4885 26.8087 37.1637 23.4141
-                    C37.839 20.0194 37.4924 16.5007 36.1679 13.303
-                    C34.8434 10.1053 32.6003 7.37221 29.7225 5.44928
-                    C26.8446 3.52636 23.4612 2.5 20 2.5
-                    C15.3587 2.5 10.9075 4.34374 7.62563 7.62563
-                    C4.34374 10.9075 2.5 15.3587 2.5 20
-                    ZM10 18.75H25.1875L18.2125 11.7412L20 10L30 20L20 30L18.2125 28.2162L25.1875 21.25H10V18.75Z" 
-                    fill="black"
-                />
-            </svg>
         </nav>
     )
 }
