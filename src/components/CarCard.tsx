@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom"
+
 interface CarCardProps {
     color: string
 }
@@ -5,8 +7,11 @@ interface CarCardProps {
 const CarCard: React.FC<CarCardProps> = ({color}) => {
     const bgColor = color === 'cardBlue'? 'bg-cardBlue': 'bg-customGreen'
 
+    const location = useLocation()
+    const marginTop = location.pathname === '/'? 'mt-4':'mt-1'
+
     return (
-        <div className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow mt-4`}>
+        <div className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow ${marginTop}`}>
 
             <div className=" flex justify-between items-center mt-2.5 w-80 h-8 rounded-3xl px-8 bg-white">
                 {/* car name */}
