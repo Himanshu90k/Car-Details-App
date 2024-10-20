@@ -19,6 +19,7 @@ export default {
         yearRed: 'rgba(224, 63, 63, 0.90)',
         customGrey:'#4D4D4D',
         customLightBlue: '#5BAFF5',
+        customLightGreen: '#1AD170',
         customLightBlack: '#1E1E1E',
       },
       fontSize: {

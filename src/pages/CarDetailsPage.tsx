@@ -1,9 +1,21 @@
 import LeftDateNavigationButton from "../components/LeftDateNavigationButton"
 import RightDateNavigationButton from "../components/RightDateNavigationButton"
 import CarCard from "../components/CarCard"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 const CarDetailsPage = () => {
+
+    // to change the background color of car card using index
+    const { id } = useParams<{ id: string }>()
+    const index: number|undefined = id? parseInt(id, 10) : undefined
+
+    // to change the background color of the work box uing index
+    let bgColor: string = ''
+    if(index !== undefined) {
+        bgColor = (index % 2 === 0)? 'bg-customLightGreen' : 'bg-customLightBlue'
+    }
+
+
     return (
         <div className="flex flex-col items-center">
 
@@ -24,13 +36,13 @@ const CarDetailsPage = () => {
             </div>
 
             {/* car details */}
-            <CarCard color={"cardBlue"}/>
+            <CarCard index={index} />
 
             {/* current date */}
             <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">10/10/2024</p>
 
             {/* work box */}
-            <div className="relative w-86 h-98 rounded-4-xl border-2 border-solid border-white bg-customLightBlue shadow-cardShadow">
+            <div className={`relative w-86 h-98 rounded-4-xl border-2 border-solid border-white ${bgColor} shadow-cardShadow`}>
                 {/* mic button */}
                 <button 
                     type="button"

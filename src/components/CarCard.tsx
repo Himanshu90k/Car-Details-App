@@ -1,17 +1,26 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, Link } from "react-router-dom"
 
 interface CarCardProps {
-    color: string
+    cars?: string
+    index?: number
 }
 
-const CarCard: React.FC<CarCardProps> = ({color}) => {
-    const bgColor = color === 'cardBlue'? 'bg-cardBlue': 'bg-customGreen'
+const CarCard: React.FC<CarCardProps> = ({index}) => {
+    //set the color of cards alternatively
+    let bgColor:string = ''
+    if (index !== undefined) {
+        bgColor= (index % 2 === 0) ? 'bg-customGreen' : 'bg-cardBlue'
+    }
 
+    //different margin for single view car details page
     const location = useLocation()
     const marginTop = location.pathname === '/'? 'mt-4':'mt-1'
 
     return (
-        <div className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow ${marginTop}`}>
+        <Link 
+            to={`car-details/${index}`}
+            title='single view car details page'
+            className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow ${marginTop}`}>
 
             <div className=" flex justify-between items-center mt-2.5 w-80 h-8 rounded-3xl px-8 bg-white">
                 {/* car name */}
@@ -53,7 +62,7 @@ const CarCard: React.FC<CarCardProps> = ({color}) => {
             <div className="flex justify-center items-center mt-4 w-60 h-6 rounded-45 bg-customRed border border-solid border-white">
                 <p className="font-montserrat font-semibold text-white text-xxs">work: so no i am writing some lorem ipsu...</p>
             </div>
-        </div>
+        </Link>
     )
 }
 

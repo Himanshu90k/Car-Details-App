@@ -1,20 +1,16 @@
-const HomeFooter: React.FC = () => {
+import { useLocation } from "react-router-dom"
+import ListViewButton from "./ListViewButton"
+import ReturnHomeButton from "./ReturnHomeButton"
+
+const Footer: React.FC = () => {
+    // to get the current path
+    const location = useLocation()
+
     return (
         <div className="flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed bottom-2">
-            {/* list link */}
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="60" 
-                height="60" 
-                viewBox="0 0 60 60" 
-                fill="none"
-            >
-                <path 
-                    d="M41.25 11.25H50.625V54.375H9.375V11.25H18.75V15H41.25V11.25ZM16.875 30
-                    H43.125V26.25H16.875V30ZM16.875 45H43.125V41.25H16.875V45ZM22.5 11.25V5.625H37.5V11.25H22.5Z" 
-                    fill="white"
-                />
-            </svg>
+            
+            {/* list view button / return to home button */}
+            {location.pathname === '/'? <ListViewButton /> : <ReturnHomeButton />}
 
             {/* add new car details - link */}
             <svg 
@@ -51,4 +47,4 @@ const HomeFooter: React.FC = () => {
     )
 }
 
-export default HomeFooter
+export default Footer
