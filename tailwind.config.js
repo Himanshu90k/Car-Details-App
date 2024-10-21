@@ -21,6 +21,7 @@ export default {
         customLightBlue: '#5BAFF5',
         customLightGreen: '#1AD170',
         customLightBlack: '#1E1E1E',
+        skyBlue: '#D4ECFF',
       },
       fontSize: {
         'xxs': '10px',
@@ -28,18 +29,27 @@ export default {
       },
       width: {
         9: '2.25rem',
+        11.5: '2.875rem',
+        18:'4.5rem',
         22: '5.5rem',
         23: '5.75rem',
+        27: '6.75rem',
+        33: '8.75rem',
         38: '9.5rem',
+        45: '11.625rem',
         60: '15rem',
         78: '19.375rem',
         84: '22rem',
-        86: '22.25rem'
+        86: '22.25rem',
+        135: '38.25rem',
+        160: '46.75rem',
       },
       height: {
         11.25: '2.875rem',
         76: '18.75rem',
         98: '24.5rem',
+        120: '35rem',
+        135: '38.25rem',
       },
       borderWidth: {
         3: '3px',
@@ -60,6 +70,9 @@ export default {
         8.5: '2.125rem',
         10.5: '2.625rem',
         18: '4.375rem',
+      },
+      margin: {
+        0.1: '1px',
       },
     },
   },
