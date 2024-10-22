@@ -14,6 +14,7 @@ export default {
         customBlue: '#182C83',
         customGreen: '#0AB057',
         customGrey: '#4D4D4D',
+        darkGrey: '#474646',
         customRed: '#E03F3F',
         cardBlue: '#3B8CCF',
         yearRed: 'rgba(224, 63, 63, 0.90)',
@@ -45,6 +46,7 @@ export default {
         160: '46.75rem',
       },
       height: {
+        5.5: '15px',
         11.25: '2.875rem',
         76: '18.75rem',
         98: '24.5rem',
@@ -62,6 +64,7 @@ export default {
         cardShadow: '4px 3px 8.1px 0px rgba(0, 0, 0, 0.26)',
         yearShadow: '-5px 5px 4.5px 0px rgba(0, 0, 0, 0.31)',
         workBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.16)',
+        workLineShadow: '-4px 4px 4.2px -2px rgba(0, 0, 0, 0.32)',
       },
       spacing: {
         '6.5': '25px',
