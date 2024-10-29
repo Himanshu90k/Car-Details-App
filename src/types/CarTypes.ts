@@ -15,6 +15,8 @@ export enum CarActionType {
     ADD_CAR_DETAILS = "ADD_CAR_DETAILS",
     DELETE_CAR_DETAILS = "DELETE_CAR_DETAILS",
     UPDATE_CAR_DETAILS = "UPDATE_CAR_DETAILS",
+    FETCH_CARS_DETAILS = "FETCH_CARS_DETAILS",
+    GET_CAR_DETAILS = "GET_CAR_DETAILS",
 }
 
 interface AddCarDetailsAction {
@@ -24,7 +26,7 @@ interface AddCarDetailsAction {
 
 interface DeleteCarDetailsAction {
     type: CarActionType.DELETE_CAR_DETAILS;
-    payload: Car;
+    payload: Car; //_id to delete the car from the local state
 }
 
 interface UpdateCarDetailsAction {
@@ -32,4 +34,14 @@ interface UpdateCarDetailsAction {
     payload: Car;
 }
 
-export type CarAction = AddCarDetailsAction | DeleteCarDetailsAction | UpdateCarDetailsAction;
+interface FetchCarsDetailsAction {
+    type: CarActionType.FETCH_CARS_DETAILS;
+    payload: CarState;
+}
+
+interface GetCarsDetailsAction {
+    type: CarActionType.GET_CAR_DETAILS;
+    payload: Car;
+}
+
+export type CarAction = AddCarDetailsAction | DeleteCarDetailsAction | UpdateCarDetailsAction | FetchCarsDetailsAction | GetCarsDetailsAction;
