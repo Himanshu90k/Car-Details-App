@@ -2,6 +2,9 @@ import LeftDateNavigationButton from "../components/LeftDateNavigationButton"
 import RightDateNavigationButton from "../components/RightDateNavigationButton"
 import CarCard from "../components/CarCard"
 import { Link, useParams } from "react-router-dom"
+import { useCar } from "../context/CarContext"
+import { useEffect } from "react"
+import { HashLoader } from "react-spinners"
 
 const CarDetailsPage = () => {
 
@@ -10,11 +13,24 @@ const CarDetailsPage = () => {
     const index: number|undefined = id? parseInt(id, 10) : undefined
 
     // to change the background color of the work box uing index
-    let bgColor: string = ''
-    if(index !== undefined) {
-        bgColor = (index % 2 === 0)? 'bg-customLightGreen' : 'bg-customLightBlue'
+    if(index === undefined) {
+        throw new Error("Index is not right")
     }
+    const bgColor = (index % 2 === 0)? 'bg-customLightGreen' : 'bg-customLightBlue'
+    
 
+    // get the car data from the context
+    const carsContext = useCar()
+    useEffect(() => {
+        carsContext.GetCars();
+    }, []);
+    const carsList = carsContext.cars
+    const car = carsList[index]
+
+    // Handle loading state - do not remove this otherwise the state will not be loaded and cause crash.
+    if (!carsList || carsList.length === 0) {
+        return <HashLoader color={(index % 2 === 0)? '#0AB057' : '#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
+    }
 
     return (
         <div className="flex flex-col items-center">
@@ -36,7 +52,7 @@ const CarDetailsPage = () => {
             </div>
 
             {/* car details */}
-            <CarCard index={index} />
+            <CarCard car={car} index={index} />
 
             {/* current date */}
             <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">10/10/2024</p>
@@ -78,9 +94,7 @@ const CarDetailsPage = () => {
                     <h2 className="font-montserrat font-bold text-xl text-customLightBlack">WORK DONE</h2>
                     <div className="w-78 h-76 rounded-2xl bg-white shadow-workBoxShadow">
                         <p className="font-montserrat font-medium text-xs p-6">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod enim explicabo, 
-                            cumque sequi minus, sit nesciunt ea harum, dolorum possimus velit commodi laborum rem nisi! 
-                            Eum molestiae nesciunt vel cumque.
+                            {car.work} {/* work done on the car */}
                         </p>
                     </div>
                 </div>

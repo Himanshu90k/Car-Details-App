@@ -1,9 +1,9 @@
 import { useLocation, Link } from "react-router-dom"
-import { Car } from "../types/CarTypes"
+import { Car } from "../context/CarContext"
 
 interface CarCardProps {
-    car: Car
-    index?: number
+    car?: Car
+    index: number
 }
 
 const CarCard: React.FC<CarCardProps> = ({car, index}) => {

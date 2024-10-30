@@ -1,17 +1,27 @@
+export interface Car {
+    _id: string | undefined;
+    date: Date;
+    carName: string;
+    carNo: string;
+    mechanicName: string;
+    serviceAdvisor: string;
+    RO_PRW: string;
+    work: string;
+}
+
 import axios from 'axios';
-import { createContext, useContext, useReducer, ReactNode } from "react";
-import CarReducer from "../reducers/CarReducer";
-import { CarActionType, CarState } from "../types/CarTypes";
+import { createContext, useContext, ReactNode } from "react";
+import { useState } from 'react';
 
 interface CarContextType {
-    state: CarState;
-    GetCars: (() => Promise<void>);
+    cars: Car[];
+    GetCars: (() => void)
 }
 
 const CarContext = createContext<CarContextType | undefined>(undefined);
 
 export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}) => {
-    const [state, dispatch] = useReducer(CarReducer, []);
+    const [cars, setCars] = useState<Car[]>([])
     const baseUrl = "https://car-details-app-api.onrender.com/api/car-details/";
 
     // const AddCar = async (newCar: Car ) => {
@@ -55,12 +65,11 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
 
     const GetCars = async () => {
         try {
-            const res = await axios.get(baseUrl)
+            const res = await axios.get<Car[]>(baseUrl)
             if (res.status !== 200) {
                 throw new Error("Error in Fetching Data")
             }
-            dispatch({type: CarActionType.FETCH_CARS_DETAILS, payload: res.data});
-
+            setCars(res.data)
         } catch (error) {
             console.error(error);
         }
@@ -80,7 +89,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     // }
 
     return (
-        <CarContext.Provider value={{state, GetCars}}>
+        <CarContext.Provider value={{cars, GetCars}}>
             {children}
         </CarContext.Provider>
     )

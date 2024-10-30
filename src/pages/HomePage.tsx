@@ -6,16 +6,12 @@ import SearchBar from "../components/SearchBar"
 import { useCar } from "../context/CarContext"
 
 const HomePage: React.FC = () => {
-
-    const cars = useCar();
+    const carsContext = useCar()
     useEffect(() => {
-        cars.GetCars();
+        carsContext.GetCars()
     }, [])
-    
+    const carsList = carsContext.cars
 
-    const carsList = cars.state
-
-    console.log(cars)
     return (
         <div className="flex flex-col items-center">
             <SearchBar />
