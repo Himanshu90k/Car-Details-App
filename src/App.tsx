@@ -8,11 +8,11 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path='/car-details/:id' element={<CarDetailsPage />} />
-        <Route path='list-view' element={<ListViewPage />} />
-      </Route>
+        <Route path='/' element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path='/car-details/:id' element={<CarDetailsPage />} />
+          <Route path='list-view' element={<ListViewPage />} />
+        </Route>
     )
   )
 

@@ -1,5 +1,5 @@
 import LeftDateNavigationButton from "./LeftDateNavigationButton"
-import MonthCard from "./MonthCard"
+// import MonthCard from "./MonthCard"
 import RightDateNavigationButton from "./RightDateNavigationButton"
 
 const HomeNavigation: React.FC = () => {
@@ -10,7 +10,7 @@ const HomeNavigation: React.FC = () => {
             {/* date navigation */}
             <p className="font-inter text-base font-medium relative">
                 10th October
-                <MonthCard />
+                {/* <MonthCard /> */}
             </p>
             <RightDateNavigationButton />
             

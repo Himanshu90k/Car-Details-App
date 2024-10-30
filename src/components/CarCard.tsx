@@ -1,15 +1,20 @@
 import { useLocation, Link } from "react-router-dom"
+import { Car } from "../types/CarTypes"
 
 interface CarCardProps {
-    cars?: string
+    car: Car
     index?: number
 }
 
-const CarCard: React.FC<CarCardProps> = ({index}) => {
+const CarCard: React.FC<CarCardProps> = ({car, index}) => {
     //set the color of cards alternatively
     let bgColor:string = ''
     if (index !== undefined) {
         bgColor= (index % 2 === 0) ? 'bg-customGreen' : 'bg-cardBlue'
+    }
+
+    if (!car) {
+        throw new Error("no data to show")
     }
 
     //different margin for single view car details page
@@ -24,10 +29,10 @@ const CarCard: React.FC<CarCardProps> = ({index}) => {
 
             <div className=" flex justify-between items-center mt-2.5 w-80 h-8 rounded-3xl px-8 bg-white">
                 {/* car name */}
-                <h2 className="text-customGrey text-xs font-extrabold font-montserrat">Honda</h2>
+                <h2 className="text-customGrey text-xs font-extrabold font-montserrat">{car.carName}</h2>
 
                 {/* car number */}
-                <h2 className="text-customGrey text-xs font-extrabold font-montserrat">DL01AB1234</h2>
+                <h2 className="text-customGrey text-xs font-extrabold font-montserrat">{car.carNo}</h2>
             </div>
 
             <div className="flex flex-col gap-2.5 w-full pl-10 mt-4">
@@ -37,7 +42,7 @@ const CarCard: React.FC<CarCardProps> = ({index}) => {
                     <h3 className="text-xxs font-montserrat font-bold text-white w-22">Mechanic Name</h3>
                     <hr className="w-2 h-0.5 border-white"/>
                     {/* value */}
-                    <p className="text-xxs font-montserrat font-bold text-white">Himanshu Rawat</p>
+                    <p className="text-xxs font-montserrat font-bold text-white">{car.mechanicName}</p>
                 </div>
 
                 {/* service advisor */}
@@ -46,7 +51,7 @@ const CarCard: React.FC<CarCardProps> = ({index}) => {
                     <h3 className="text-xxs font-montserrat font-bold text-white w-22">Service Advisor</h3>
                     <hr className="w-2 h-0.5 border-white"/>
                     {/* value */}
-                    <p className="text-xxs font-montserrat font-bold text-white">Harish Rawat</p>
+                    <p className="text-xxs font-montserrat font-bold text-white">{car.serviceAdvisor}</p>
                 </div>
                 
                 {/* ro-prw */}
@@ -55,12 +60,12 @@ const CarCard: React.FC<CarCardProps> = ({index}) => {
                     <h3 className="text-xxs font-montserrat font-bold text-white w-22">R.O-P.R.W</h3>
                     <hr className="w-2 h-0.5 border-white"/>
                     {/* value */}
-                    <p className="text-xxs font-montserrat font-bold text-white">R.O</p>
+                    <p className="text-xxs font-montserrat font-bold text-white">{car.RO_PRW}</p>
                 </div>
             </div>
 
             <div className="flex justify-center items-center mt-4 w-60 h-6 rounded-45 bg-customRed border border-solid border-white">
-                <p className="font-montserrat font-semibold text-white text-xxs">work: so no i am writing some lorem ipsu...</p>
+                <p className="font-montserrat font-semibold text-white text-xxs">{car.work}</p>
             </div>
         </Link>
     )

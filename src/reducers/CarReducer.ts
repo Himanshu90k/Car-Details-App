@@ -16,6 +16,9 @@ const CarReducer = (state: CarState, action: CarAction): CarState => {
         case CarActionType.FETCH_CARS_DETAILS:
             return action.payload
 
+        case CarActionType.GET_CAR_DETAILS:
+            return [action.payload]
+
         default:
             return state
     }

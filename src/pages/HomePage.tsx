@@ -1,17 +1,26 @@
+import { useEffect } from "react"
 import HomeNavigation from "../components/HomeNavigation"
 import CarCard from "../components/CarCard"
 import Footer from "../components/Footer"
 import SearchBar from "../components/SearchBar"
+import { useCar } from "../context/CarContext"
 
 const HomePage: React.FC = () => {
 
-    const cars = ['customGreen','cardBlue','customGreen','cardBlue','customGreen'];
+    const cars = useCar();
+    useEffect(() => {
+        cars.GetCars();
+    }, [])
+    
 
+    const carsList = cars.state
+
+    console.log(cars)
     return (
         <div className="flex flex-col items-center">
             <SearchBar />
             <HomeNavigation />
-            {cars.map((cars, index) => <CarCard cars={cars} key={index} index={index} />)}
+            {carsList.map((car, index) => <CarCard car={car} key={index} index={index} />)}
             <Footer />
         </div>
     )

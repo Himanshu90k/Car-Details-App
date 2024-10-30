@@ -54,9 +54,9 @@ const SearchBar: React.FC = () => {
                             C18.5892 26.917 21.472 25.7229 23.5974 23.5974Z
                         " 
                         stroke="#182C83" 
-                        stroke-width="2.5" 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round"
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
                     />
                 </svg>
             </form>
