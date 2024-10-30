@@ -33,7 +33,7 @@ const CarDetailsPage = () => {
     }
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="relative flex flex-col items-center">
 
             {/* navigation */}
             <div className="flex items-center gap-10 mt-3">
@@ -56,6 +56,27 @@ const CarDetailsPage = () => {
 
             {/* current date */}
             <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">10/10/2024</p>
+
+            {/* pop up for deleting the car details */}
+            <div className="absolute top-48 z-40 flex flex-col items-center w-72 h-28 rounded-2xl border-solid border-white border-2 bg-black">
+                <p className="font-montserrat text-xs font-medium text-white w-40 text-center mt-4">Are you sure you want to Delete?</p>
+                <div className="flex gap-11 mt-3">
+                    <button
+                        type="button"
+                        title="yes"
+                        className="w-18 h-8 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-xl text-white"    
+                    >
+                        Yes
+                    </button>
+                    <button
+                        type="button"
+                        title="no"
+                        className="w-18 h-8 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-xl text-white"
+                    >
+                        No
+                    </button>
+                </div>
+            </div>
 
             {/* work box */}
             <div className={`relative w-86 h-98 rounded-4-xl border-2 border-solid border-white ${bgColor} shadow-cardShadow`}>
@@ -103,11 +124,19 @@ const CarDetailsPage = () => {
             {/* footer */}
             <div className="w-84 h-20 rounded-45 bg-black flex justify-center gap-18 items-center my-6">
                 {/* update button */}
-                <button className="w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-base text-white">
+                <button 
+                    type="button"
+                    title="Update"
+                    className="w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-base text-white"
+                >
                     Update
                 </button>
                 {/* delete button */}
-                <button className="w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-base text-white">
+                <button 
+                    type="button"
+                    title="Delete"
+                    className="w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-base text-white"
+                >
                     Delete
                 </button>
             </div>
