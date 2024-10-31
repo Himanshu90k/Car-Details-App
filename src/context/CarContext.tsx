@@ -15,7 +15,8 @@ import { useState } from 'react';
 
 interface CarContextType {
     cars: Car[];
-    GetCars: (() => void)
+    GetCars: (() => Promise<void>)
+    DeleteCar: ((_id: string) => Promise<void>)
 }
 
 const CarContext = createContext<CarContextType | undefined>(undefined);
@@ -37,18 +38,20 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     //     }
     // }
 
-    // const DeleteCar = async (deleteCar: Car) => {
-    //     try {
-    //         const res = await axios.delete(`${baseUrl}/:id`)
-    //         if (res.status !== 200) {
-    //             throw new Error("The Car Data couldn't be deleted")
-    //         }
-    //         dispatch({type: CarActionType.DELETE_CAR_DETAILS, payload: deleteCar})
+    const DeleteCar = async (_id: string) => {
+        try {
+            const res = await axios.delete(`${baseUrl}/${_id}`)
+            if (res.status !== 200) {
+                throw new Error("The Car Data couldn't be deleted")
+            }
+            setCars( (prevState) => {
+                return prevState.filter( (car) => car._id !== res.data._id)
+            })
 
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     // const UpdateCar = async (newCar: Car) => {
     //     try {
@@ -89,7 +92,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     // }
 
     return (
-        <CarContext.Provider value={{cars, GetCars}}>
+        <CarContext.Provider value={{cars, GetCars, DeleteCar}}>
             {children}
         </CarContext.Provider>
     )

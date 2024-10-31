@@ -1,10 +1,11 @@
 import LeftDateNavigationButton from "../components/LeftDateNavigationButton"
 import RightDateNavigationButton from "../components/RightDateNavigationButton"
 import CarCard from "../components/CarCard"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import { useCar } from "../context/CarContext"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { HashLoader } from "react-spinners"
+import { toast } from "react-toastify"
 
 const CarDetailsPage = () => {
 
@@ -18,6 +19,15 @@ const CarDetailsPage = () => {
     }
     const bgColor = (index % 2 === 0)? 'bg-customLightGreen' : 'bg-customLightBlue'
     
+    // state for toggling delete-confirmation pop up
+    const [toggle, setToggle] = useState(false)
+    const handleDeleteToggleAction = () => {
+        if(toggle === true) {
+            setToggle(false)
+        } else {
+            setToggle(true)
+        }
+    }
 
     // get the car data from the context
     const carsContext = useCar()
@@ -27,10 +37,24 @@ const CarDetailsPage = () => {
     const carsList = carsContext.cars
     const car = carsList[index]
 
+    // function to delete the car Details
+    const navigate = useNavigate()
+    const deleteCarDetails = () => {
+        if(!car._id) {
+            throw new Error("car object doesn't have id")
+        }
+        carsContext.DeleteCar(car._id)
+        setToggle(false)
+        toast.success("Car Details Deleted")
+        return navigate('/')
+
+    }
+    
     // Handle loading state - do not remove this otherwise the state will not be loaded and cause crash.
     if (!carsList || carsList.length === 0) {
         return <HashLoader color={(index % 2 === 0)? '#0AB057' : '#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
     }
+    
 
     return (
         <div className="relative flex flex-col items-center">
@@ -43,7 +67,7 @@ const CarDetailsPage = () => {
                 <Link 
                     title="home page"
                     to='/'
-                    className="w-24 h-8 rounded-45 bg-black text-white text-center leading-8 font-montserrat font-bold text-base"
+                    className="w-24 h-8 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
                 >
                     Back
                 </Link>
@@ -58,20 +82,22 @@ const CarDetailsPage = () => {
             <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">10/10/2024</p>
 
             {/* pop up for deleting the car details */}
-            <div className="absolute top-48 z-40 flex flex-col items-center w-72 h-28 rounded-2xl border-solid border-white border-2 bg-black">
+            <div className={`absolute top-48 z-40 ${toggle? "flex" : "hidden"} flex-col items-center w-72 h-28 rounded-2xl border-solid border-white border-2 bg-black`}>
                 <p className="font-montserrat text-xs font-medium text-white w-40 text-center mt-4">Are you sure you want to Delete?</p>
                 <div className="flex gap-11 mt-3">
                     <button
                         type="button"
                         title="yes"
-                        className="w-18 h-8 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-xl text-white"    
+                        onClick={deleteCarDetails}
+                        className="w-18 h-8 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-xl text-white"    
                     >
                         Yes
                     </button>
                     <button
                         type="button"
                         title="no"
-                        className="w-18 h-8 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-xl text-white"
+                        onClick={handleDeleteToggleAction}
+                        className="w-18 h-8 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-xl text-white"
                     >
                         No
                     </button>
@@ -135,7 +161,8 @@ const CarDetailsPage = () => {
                 <button 
                     type="button"
                     title="Delete"
-                    className="w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-base text-white"
+                    onClick={handleDeleteToggleAction}
+                    className={`w-23 h-11.25 rounded-45 border-2 border-solid border-white ${toggle? "bg-customGreen" : "bg-customRed"} hover:bg-customGreen font-montserrat font-bold text-base text-white`}
                 >
                     Delete
                 </button>
