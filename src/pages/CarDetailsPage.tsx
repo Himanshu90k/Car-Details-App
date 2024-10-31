@@ -51,7 +51,7 @@ const CarDetailsPage = () => {
     }
     
     // Handle loading state - do not remove this otherwise the state will not be loaded and cause crash.
-    if (!carsList || carsList.length === 0) {
+    if (carsList.length === 0) {
         return <HashLoader color={(index % 2 === 0)? '#0AB057' : '#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
     }
     

@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
     const carsList = carsContext.cars
 
     // Handle loading state
-    if (!carsList || carsList.length === 0) {
+    if (carsList.length === 0) {
         return <HashLoader color={'#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
     }
 
