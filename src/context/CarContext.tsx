@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 interface CarContextType {
     cars: Car[];
-    GetCars: (() => Promise<void>)
+    GetCars: (() => Promise<boolean>)
     DeleteCar: ((_id: string) => Promise<void>)
 }
 
@@ -70,11 +70,14 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
         try {
             const res = await axios.get<Car[]>(baseUrl)
             if (res.status !== 200) {
-                throw new Error("Error in Fetching Data")
+                return false
             }
             setCars(res.data)
+            return false
+
         } catch (error) {
             console.error(error);
+            return false
         }
     }
 
