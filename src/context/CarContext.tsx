@@ -12,11 +12,13 @@ export interface Car {
 import axios from 'axios';
 import { createContext, useContext, ReactNode } from "react";
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 interface CarContextType {
     cars: Car[];
     GetCars: (() => Promise<boolean>)
     DeleteCar: ((_id: string) => Promise<void>)
+    UpdateCar: ((newCar: Car) => Promise<void>)
 }
 
 const CarContext = createContext<CarContextType | undefined>(undefined);
@@ -42,7 +44,8 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
         try {
             const res = await axios.delete(`${baseUrl}/${_id}`)
             if (res.status !== 200) {
-                throw new Error("The Car Data couldn't be deleted")
+                toast.success("The Car Data couldn't be deleted")
+                return
             }
             setCars( (prevState) => {
                 return prevState.filter( (car) => car._id !== res.data._id)
@@ -53,18 +56,19 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
         }
     }
 
-    // const UpdateCar = async (newCar: Car) => {
-    //     try {
-    //         const res = await axios.put(`${baseUrl}/:id`)
-    //         if (res.status !== 200) {
-    //             throw new Error("Car data updated")
-    //         }
-    //         dispatch({type: CarActionType.UPDATE_CAR_DETAILS, payload: newCar})
+    const UpdateCar = async (newCar: Car) => {
+        try {
+            const res = await axios.put(`${baseUrl}/${newCar._id}`)
+            if (res.status !== 200) {
+                toast.success("Car Details could not be updated.")
+                return
+            }
+            
 
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const GetCars = async () => {
         try {
@@ -95,7 +99,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     // }
 
     return (
-        <CarContext.Provider value={{cars, GetCars, DeleteCar}}>
+        <CarContext.Provider value={{cars, GetCars, DeleteCar, UpdateCar}}>
             {children}
         </CarContext.Provider>
     )

@@ -150,13 +150,12 @@ const CarDetailsPage = () => {
             {/* footer */}
             <div className="w-84 h-20 rounded-45 bg-black flex justify-center gap-18 items-center my-6">
                 {/* update button */}
-                <button 
-                    type="button"
-                    title="Update"
-                    className="w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed font-montserrat font-bold text-base text-white"
+                <Link
+                    to={`/update-details/${index}`}
+                    className="flex justify-center items-center w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-base text-white"
                 >
                     Update
-                </button>
+                </Link>
                 {/* delete button */}
                 <button 
                     type="button"
