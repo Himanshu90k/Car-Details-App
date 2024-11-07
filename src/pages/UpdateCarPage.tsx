@@ -46,6 +46,44 @@ const UpdateCarPage: React.FC = () => {
     return (
         <div className="flex flex-col items-center">
 
+            {/* car details update form */}
+            <div className="w-81 h-125 rounded-2xl shadow-formBoxShadow bg-custom-blue-gradient mt-8">
+                {/* heading */}
+                <div className="flex flex-col items-center mt-5">
+                    <h2 className="font-inter font-semibold text-sm opacity-80">UPDATE CAR DETAILS</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="2" viewBox="0 0 100 2" fill="none">
+                        <path d="M1 1H99" stroke="black" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
+                {/* form labels and fields */}
+                <form className="flex flex-col ml-7 pb-2 mt-12">
+                    {/* car name */}
+                    <label htmlFor="carName" className="font-inter text-xs font-normal">Car Name:</label>
+                    <input 
+                        type="text"
+                        name="carName"
+                        id="carName"
+                        value="Honda"
+                        required
+                        className="rounded-md h-6 w-56 pl-2 mb-4 font-inter text-sm opacity-90 font-normal"
+                    />
+
+                    {/* car no */}
+                    <label htmlFor="carNo" className="font-inter text-xs font-normal">Car Number:</label>
+                    <input 
+                        type="text"
+                        name="carNo"
+                        id="carNo"
+                        value="DLTYY67H"
+                        required
+                        className="rounded-md h-6 w-56 pl-2 mb-4 font-inter text-sm opacity-90 font-normal"
+                    />
+
+                </form>
+
+            </div>
+
             {/* pop up for deleting the car details */}
             <div className={`absolute top-48 z-40 ${toggle? "flex" : "hidden"} flex-col items-center w-72 h-28 rounded-2xl border-solid border-white border-2 bg-black`}>
                 <p className="font-montserrat text-xs font-medium text-white w-40 text-center mt-4">Are you sure you want to Delete?</p>

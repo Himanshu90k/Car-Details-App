@@ -40,6 +40,7 @@ export default {
         45: '11.625rem',
         60: '15rem',
         78: '19.375rem',
+        81: '21.25rem',
         84: '22rem',
         86: '22.25rem',
         135: '38.25rem',
@@ -51,6 +52,7 @@ export default {
         76: '18.75rem',
         98: '24.5rem',
         120: '35rem',
+        125: '36.25rem',
         135: '38.25rem',
       },
       borderWidth: {
@@ -65,6 +67,7 @@ export default {
         yearShadow: '-5px 5px 4.5px 0px rgba(0, 0, 0, 0.31)',
         workBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.16)',
         workLineShadow: '-4px 4px 4.2px -2px rgba(0, 0, 0, 0.32)',
+        formBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.25)',
       },
       spacing: {
         '6.5': '25px',
@@ -76,6 +79,9 @@ export default {
       },
       margin: {
         0.1: '1px',
+      },
+      backgroundImage: {
+        'custom-blue-gradient': 'linear-gradient(180deg, #9FD3FF 0%, #81BDEF 22.86%, #72B2E7 41.94%, #2B7DC0 100%)',
       },
     },
   },
