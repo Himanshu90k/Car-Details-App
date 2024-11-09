@@ -33,6 +33,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
             console.log(newCar)
             const res = await axios.post(baseUrl, newCar)
             if (res.status === 201) {
+                setCars([...cars, newCar])
                 toast.success("New Car Added")
                 return
             }
