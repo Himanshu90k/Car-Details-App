@@ -1,6 +1,6 @@
 export interface Car {
     _id: string | undefined;
-    date: Date;
+    date: string;
     carName: string;
     carNo: string;
     mechanicName: string;
@@ -19,6 +19,7 @@ interface CarContextType {
     GetCars: (() => Promise<boolean>)
     DeleteCar: ((_id: string) => Promise<void>)
     UpdateCar: ((newCar: Car) => Promise<void>)
+    AddCar: ((newCar: Car) => Promise<void>)
 }
 
 const CarContext = createContext<CarContextType | undefined>(undefined);
@@ -27,24 +28,27 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     const [cars, setCars] = useState<Car[]>([])
     const baseUrl = "https://car-details-app-api.onrender.com/api/car-details/";
 
-    // const AddCar = async (newCar: Car ) => {
-    //     try {
-    //         const res = await axios.post(baseUrl, newCar)
-    //         if (res.status !== 201) {
-    //             throw new Error("The new car data was not added")
-    //         }
-    //         dispatch({ type: CarActionType.ADD_CAR_DETAILS, payload: newCar});
+    const AddCar = async (newCar: Car ) => {
+        try {
+            console.log(newCar)
+            const res = await axios.post(baseUrl, newCar)
+            if (res.status === 201) {
+                toast.success("New Car Added")
+                return
+            }
 
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
+            toast.error("Car data couldn't be added")
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const DeleteCar = async (_id: string) => {
         try {
             const res = await axios.delete(`${baseUrl}/${_id}`)
             if (res.status !== 200) {
-                toast.success("The Car Data couldn't be deleted")
+                toast.error("The Car Data couldn't be deleted")
                 return
             }
             setCars( (prevState) => {
@@ -60,7 +64,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
         try {
             const res = await axios.put(`${baseUrl}/${newCar._id}`)
             if (res.status !== 200) {
-                toast.success("Car Details could not be updated.")
+                toast.error("Car Details could not be updated.")
                 return
             }
             
@@ -99,7 +103,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     // }
 
     return (
-        <CarContext.Provider value={{cars, GetCars, DeleteCar, UpdateCar}}>
+        <CarContext.Provider value={{cars, GetCars, DeleteCar, UpdateCar, AddCar}}>
             {children}
         </CarContext.Provider>
     )
