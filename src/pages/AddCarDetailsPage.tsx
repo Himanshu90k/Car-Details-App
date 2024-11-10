@@ -153,10 +153,10 @@ const AddCarDetailsPage: React.FC = () => {
                         <label htmlFor="PRW" className="font-inter font-normal text-xxs ml-2 mr-4">P.R.W</label>
 
                         <input 
-                            title="RO_PRW_Numbers"
+                            title="RO_PRW"
                             type="text"
                             name="RO_PRW"
-                            id="number"
+                            id="RO_PRW"
                             value={formData.RO_PRW}
                             onChange={handleChange}
                             required
@@ -237,7 +237,7 @@ const AddCarDetailsPage: React.FC = () => {
                 {/* Submit button */}
                 <button 
                     type="button"
-                    title="Delete"
+                    title="Submit"
                     onClick={handleUpdateToggleAction}
                     className={`w-23 h-11.25 rounded-45 border-2 border-solid border-white ${toggle? "bg-customGreen" : "bg-customRed"} hover:bg-customGreen font-montserrat font-bold text-base text-white`}
                 >

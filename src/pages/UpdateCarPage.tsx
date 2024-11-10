@@ -1,45 +1,98 @@
 import { Link, useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useCar } from "../context/CarContext"
-import { toast } from "react-toastify"
+import { Car } from "../context/CarContext"
+import { HashLoader } from "react-spinners"
+
+type FormData = Car & {
+    RO_PRW_SELECTION: string;
+}
 
 const UpdateCarPage: React.FC = () => {
+
+    const navigate = useNavigate()
 
     // to get the _id of car card using index
     const { id } = useParams<{ id: string }>()
     const index: number|undefined = id? parseInt(id, 10) : undefined
     if(index === undefined) {
-        throw new Error("Index is not right")
+        return <p>Invalid Car ID</p>;
     }
 
-    // state for toggling delete-confirmation pop up
-    const [toggle, setToggle] = useState(false)
-    const handleUpdateToggleAction = () => {
-        if(toggle === true) {
-            setToggle(false)
-        } else {
-            setToggle(true)
-        }
-    }
+    // state for toggling submit-confirmation pop up
+    const [toggle, setToggle] = useState<boolean>(false)
+    const handleUpdateToggleAction = () => setToggle(!toggle)
 
-    // get the car data from the context
+    // state for adding form data
+    const [formData, setFormData] = useState<FormData>({
+        _id: "", 
+        date: "", 
+        carName: "", 
+        carNo: "", 
+        mechanicName: "", 
+        serviceAdvisor: "", 
+        RO_PRW: "", 
+        RO_PRW_SELECTION: "", 
+        work: "",
+    })
+
+    // car state
+    const [car, setCar] = useState<Car | undefined>(undefined)
+
+    // get the cars state and loading value
     const carsContext = useCar()
     useEffect(() => {
-        carsContext.GetCars();
-    }, []);
-    const carsList = carsContext.cars
-    const car = carsList[index]
-
-    // function to delete the car Details
-    const navigate = useNavigate()
-    const deleteCarDetails = () => {
-        if(!car) {
-            throw new Error("car object doesn't have id")
+        carsContext.GetCars()
+    }, [])
+    
+    useEffect(() => {
+        const carsList = carsContext.cars
+        setCar(carsList[index])
+        //default values for the state
+        if(car) {
+            const result = car.RO_PRW.split("-")
+            const defaultValues: FormData = {
+                _id: car._id,
+                date: car.date,
+                carName: car.carName,
+                carNo: car.carNo,
+                mechanicName: car.mechanicName,
+                serviceAdvisor: car.serviceAdvisor,
+                RO_PRW: result[1],
+                RO_PRW_SELECTION: result[0],
+                work: car.work,
+            }
+            setFormData(defaultValues)
         }
-        carsContext.UpdateCar(car)
-        setToggle(false)
-        toast.success("Car Details Updated")
-        return navigate('/')
+    }, [carsContext.cars])
+
+    // Handle loading state - do not remove this otherwise the state will not be loaded and cause crash.
+    if (!car) {
+        return <HashLoader color={(index % 2 === 0)? '#0AB057' : '#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
+    }
+
+    
+
+    // handle change function to input data in the form
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const {name, value} = e.target
+        setFormData({...formData, [name]: value})
+    }
+
+    // function to update the car Details
+    const updateCarDetails = () => {
+        const newCar: Car = {
+            _id: car._id,
+            date: car.date,
+            carName: formData.carName,
+            carNo: formData.carNo,
+            mechanicName: formData.mechanicName,
+            serviceAdvisor: formData.serviceAdvisor,
+            work: formData.work,
+            RO_PRW: `${formData.RO_PRW_SELECTION}-${formData.RO_PRW}`
+        }
+        carsContext.UpdateCar(newCar)
+        return navigate(`/car-details/${id}`)
 
     }
 
@@ -52,7 +105,7 @@ const UpdateCarPage: React.FC = () => {
                 <div className="flex flex-col items-center mt-5">
                     <h2 className="font-inter font-semibold text-sm opacity-80">UPDATE CAR DETAILS</h2>
                     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="2" viewBox="0 0 100 2" fill="none">
-                        <path d="M1 1H99" stroke="black" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M1 1H99" stroke="black" strokeOpacity="0.8" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                 </div>
 
@@ -64,7 +117,8 @@ const UpdateCarPage: React.FC = () => {
                         type="text"
                         name="carName"
                         id="carName"
-                        value="Honda"
+                        value={formData.carName}
+                        onChange={handleChange}
                         required
                         className="rounded-md h-6 w-56 pl-2 mb-4 font-inter text-xs opacity-90 font-normal"
                     />
@@ -75,7 +129,8 @@ const UpdateCarPage: React.FC = () => {
                         type="text"
                         name="carNo"
                         id="carNo"
-                        value="DLTYY67H"
+                        value={formData.carNo}
+                        onChange={handleChange}
                         required
                         className="rounded-md h-6 w-56 pl-2 mb-4 font-inter text-xs opacity-90 font-normal"
                     />
@@ -86,7 +141,8 @@ const UpdateCarPage: React.FC = () => {
                         type="text"
                         name="mechanicName"
                         id="mechanicName"
-                        value="Harish Rawat"
+                        value={formData.mechanicName}
+                        onChange={handleChange}
                         required
                         className="rounded-md h-6 w-56 pl-2 mb-4 font-inter text-xs opacity-90 font-normal"
                     />
@@ -97,7 +153,8 @@ const UpdateCarPage: React.FC = () => {
                         type="text"
                         name="serviceAdvisor"
                         id="serviceAdvisor"
-                        value="Himanshu Rawat"
+                        value={formData.serviceAdvisor}
+                        onChange={handleChange}
                         required
                         className="rounded-md h-6 w-56 pl-2 mb-4 font-inter text-xs opacity-90 font-normal"
                     />
@@ -107,9 +164,10 @@ const UpdateCarPage: React.FC = () => {
                     <div className="flex items-center">
                         <input 
                             type="radio"
-                            name="RO_PRW"
+                            name="RO_PRW_SELECTION"
                             id="RO"
-                            value="R.O"
+                            value={"RO"}
+                            onChange={handleChange}
                             required
                             className="w-2.5 h-2.5 checked:bg-black checked:opacity-80 checked:border-2 checked:border-solid 
                             checked:border-white appearance-none bg-white rounded-45"
@@ -119,9 +177,10 @@ const UpdateCarPage: React.FC = () => {
 
                         <input 
                             type="radio"
-                            name="RO_PRW"
+                            name="RO_PRW_SELECTION"
                             id="PRW"
-                            value="R.O"
+                            value={"PRW"}
+                            onChange={handleChange}
                             required
                             className="w-2.5 h-2.5 checked:bg-black checked:opacity-80 checked:border-2 checked:border-solid 
                             checked:border-white appearance-none bg-white rounded-45"
@@ -129,11 +188,12 @@ const UpdateCarPage: React.FC = () => {
                         <label htmlFor="PRW" className="font-inter font-normal text-xxs ml-2 mr-4">P.R.W</label>
 
                         <input 
-                            title="RO_PRW_NO"
+                            title="RO_PRW"
                             type="text"
-                            name="number"
-                            id="number"
-                            value="4564"
+                            name="RO_PRW"
+                            id="RO_PRW"
+                            value={formData.RO_PRW}
+                            onChange={handleChange}
                             required
                             className="w-20 h-5 pl-1 rounded-md font-inter text-xs opacity-90 font-normal"
                         />
@@ -145,7 +205,8 @@ const UpdateCarPage: React.FC = () => {
                         <textarea
                             name="work"
                             id="work"
-                            value="Some work was done on this app."
+                            value={formData.work}
+                            onChange={handleChange}
                             required
                             className="w-64 h-28 pl-3 pt-7 rounded-md font-inter text-xs font-normal"
                         >
@@ -176,14 +237,14 @@ const UpdateCarPage: React.FC = () => {
 
             </div>
 
-            {/* pop up for deleting the car details */}
+            {/* pop up for updating the car details */}
             <div className={`absolute top-64 z-40 ${toggle? "flex" : "hidden"} flex-col items-center w-72 h-28 rounded-2xl border-solid border-white border-2 bg-black`}>
-                <p className="font-montserrat text-xs font-medium text-white w-40 text-center mt-4">Are you sure you want to Delete?</p>
+                <p className="font-montserrat text-xs font-medium text-white w-40 text-center mt-4">Are you sure you want to Submit?</p>
                 <div className="flex gap-11 mt-3">
                     <button
                         type="button"
                         title="yes"
-                        onClick={deleteCarDetails}
+                        onClick={updateCarDetails}
                         className="w-18 h-8 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-xl text-white"    
                     >
                         Yes
@@ -201,17 +262,17 @@ const UpdateCarPage: React.FC = () => {
 
             {/* footer */}
             <div className="w-84 h-20 rounded-45 bg-black flex justify-center gap-18 items-center my-6">
-                {/* update button */}
+                {/* back button */}
                 <Link
                     to={`/car-details/${index}`}
                     className="flex justify-center items-center w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-base text-white"
                 >
                     Back
                 </Link>
-                {/* delete button */}
+                {/* submit button */}
                 <button 
                     type="button"
-                    title="Delete"
+                    title="Submit"
                     onClick={handleUpdateToggleAction}
                     className={`w-23 h-11.25 rounded-45 border-2 border-solid border-white ${toggle? "bg-customGreen" : "bg-customRed"} hover:bg-customGreen font-montserrat font-bold text-base text-white`}
                 >

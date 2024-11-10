@@ -63,13 +63,15 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
 
     const UpdateCar = async (newCar: Car) => {
         try {
-            const res = await axios.put(`${baseUrl}/${newCar._id}`)
-            if (res.status !== 200) {
-                toast.error("Car Details could not be updated.")
+            const res = await axios.put(`${baseUrl}/${newCar._id}`, newCar)
+            console.log(newCar)
+            if (res.status === 200) {
+                setCars(cars.map( (car) => car._id === newCar._id? newCar : car))
+                toast.success("Car Details Updated")
                 return
             }
+            toast.error("Car Details could not be Updated.")
             
-
         } catch (error) {
             console.error(error);
         }
