@@ -5,20 +5,39 @@ import Footer from "../components/Footer"
 import SearchBar from "../components/SearchBar"
 import { useCar } from "../context/CarContext"
 import { HashLoader } from "react-spinners"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 const HomePage: React.FC = () => {
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const date = searchParams.get("date")
 
     // get the cars state and loading value
     const carsContext = useCar()
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        carsContext.GetCars(new Date().toISOString().split('T')[0])
-        .then(result => {
-            setLoading(result)// returns true or false
-        })
+        setSearchParams({date: `${new Date().toISOString().split('T')[0]}`})
+        if(date) {
+            carsContext.GetCars(date)
+                .then(result => {
+                    setLoading(result)// returns true or false
+                })
+        }
+        
     }, [])
+
+    useEffect(() => {
+        if(date) {
+            setLoading(true)
+            setSearchParams({date: date})
+            carsContext.GetCars(date)
+                .then(result => {
+                    setLoading(result)// returns true or false
+                })
+        }
+    }, [date])
     const carsList = carsContext.cars
+    console.log(date)
 
     return (
         <div className="flex flex-col items-center">

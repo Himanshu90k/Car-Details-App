@@ -1,8 +1,23 @@
+import { useSearchParams } from "react-router-dom"
+
 const RightDateNavigationButton: React.FC = () => {
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const dateString = searchParams.get("date")?.split("-")
+    if(!dateString) {
+       throw new Error("date format is not correct") 
+    }
+    let date = dateString.map((dateString) => parseInt(dateString, 10))
+
+    const handleChange = () => {
+        setSearchParams({date: new Date(date[0], date[1] - 1, date[2] + 2).toISOString().split('T')[0]})
+
+    }
+
     return (
         <button
             type="button"
-            
+            onClick={handleChange}
         >
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -10,6 +25,7 @@ const RightDateNavigationButton: React.FC = () => {
                 height="40" 
                 viewBox="0 0 40 40" 
                 fill="none"
+                className="hover: fill"
             >
                 <path 
                     d="M2.5 20

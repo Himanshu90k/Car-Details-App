@@ -30,7 +30,6 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
 
     const AddCar = async (newCar: Car ) => {
         try {
-            console.log(newCar)
             const res = await axios.post(baseUrl, newCar)
             if (res.status === 201) {
                 setCars([...cars, newCar])
@@ -64,7 +63,6 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     const UpdateCar = async (newCar: Car) => {
         try {
             const res = await axios.put(`${baseUrl}/${newCar._id}`, newCar)
-            console.log(newCar)
             if (res.status === 200) {
                 setCars(cars.map( (car) => car._id === newCar._id? newCar : car))
                 toast.success("Car Details Updated")
@@ -79,15 +77,15 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
 
     const GetCars = async (date: string) => {
         try {
-            console.log(date)
             const res = await axios.get<Car[]>(`${baseUrl}?date=${date}`)
-            if (res.status !== 200) {
-                return false
+            if (res.status === 200) {
+                setCars(res.data)
+                return false 
             }
-            setCars(res.data)
             return false
-
+            
         } catch (error) {
+            setCars([])
             console.error(error);
             return false
         }
