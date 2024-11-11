@@ -168,6 +168,7 @@ const UpdateCarPage: React.FC = () => {
                             id="RO"
                             value={"RO"}
                             onChange={handleChange}
+                            checked={formData.RO_PRW_SELECTION === 'RO'}
                             required
                             className="w-2.5 h-2.5 checked:bg-black checked:opacity-80 checked:border-2 checked:border-solid 
                             checked:border-white appearance-none bg-white rounded-45"
@@ -181,6 +182,7 @@ const UpdateCarPage: React.FC = () => {
                             id="PRW"
                             value={"PRW"}
                             onChange={handleChange}
+                            checked={formData.RO_PRW_SELECTION === 'PRW'}
                             required
                             className="w-2.5 h-2.5 checked:bg-black checked:opacity-80 checked:border-2 checked:border-solid 
                             checked:border-white appearance-none bg-white rounded-45"
