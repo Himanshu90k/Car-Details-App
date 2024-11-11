@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
     const carsContext = useCar()
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        carsContext.GetCars()
+        carsContext.GetCars(new Date().toISOString().split('T')[0])
         .then(result => {
             setLoading(result)// returns true or false
         })

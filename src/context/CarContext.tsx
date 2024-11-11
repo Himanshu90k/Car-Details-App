@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 
 interface CarContextType {
     cars: Car[];
-    GetCars: (() => Promise<boolean>)
+    GetCars: ((date: string) => Promise<boolean>)
     DeleteCar: ((_id: string) => Promise<void>)
     UpdateCar: ((newCar: Car) => Promise<void>)
     AddCar: ((newCar: Car) => Promise<void>)
@@ -77,9 +77,10 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
         }
     }
 
-    const GetCars = async () => {
+    const GetCars = async (date: string) => {
         try {
-            const res = await axios.get<Car[]>(baseUrl)
+            console.log(date)
+            const res = await axios.get<Car[]>(`${baseUrl}?date=${date}`)
             if (res.status !== 200) {
                 return false
             }

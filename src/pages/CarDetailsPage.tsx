@@ -32,7 +32,7 @@ const CarDetailsPage = () => {
     // get the car data from the context
     const carsContext = useCar()
     useEffect(() => {
-        carsContext.GetCars();
+        carsContext.GetCars(new Date().toISOString().split('T')[0]);
     }, []);
     const carsList = carsContext.cars
     const car = carsList[index]
