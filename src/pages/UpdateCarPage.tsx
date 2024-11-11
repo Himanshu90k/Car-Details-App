@@ -42,7 +42,7 @@ const UpdateCarPage: React.FC = () => {
     // get the cars state and loading value
     const carsContext = useCar()
     useEffect(() => {
-        carsContext.GetCars()
+        carsContext.GetCars(new Date().toISOString().split('T')[0])
     }, [])
     
     useEffect(() => {
