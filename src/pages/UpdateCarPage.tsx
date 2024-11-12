@@ -55,7 +55,7 @@ const UpdateCarPage: React.FC = () => {
                 })
         }
         
-    }, [date])
+    }, [])
     
     useEffect(() => {
         const carsList = carsContext.cars
@@ -76,7 +76,7 @@ const UpdateCarPage: React.FC = () => {
             }
             setFormData(defaultValues)
         }
-    }, [carsContext.cars])
+    }, [carsContext, car])
 
     // Handle loading state.
     if (!car && loading) {

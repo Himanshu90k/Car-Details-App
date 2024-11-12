@@ -39,7 +39,7 @@ const CarDetailsPage = () => {
                 })
         }
         
-    }, [date])
+    }, [])
     const carsList = carsContext.cars
     const car = carsList[index]
 
@@ -86,6 +86,7 @@ const CarDetailsPage = () => {
         return (
             <>
                 <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">Index is out of range</h2>
+                <p className="font-montserrat text-center text-xs">Return to <Link to='/'> <b className="hover:text-customRed">Home</b></Link></p>
             </>
         )
     }
