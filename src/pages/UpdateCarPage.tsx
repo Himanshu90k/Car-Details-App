@@ -55,7 +55,7 @@ const UpdateCarPage: React.FC = () => {
                 })
         }
         
-    }, [])
+    }, [date])
     
     useEffect(() => {
         const carsList = carsContext.cars
@@ -78,7 +78,7 @@ const UpdateCarPage: React.FC = () => {
         }
     }, [carsContext.cars])
 
-    // Handle loading state - do not remove this otherwise the state will not be loaded and cause crash.
+    // Handle loading state.
     if (!car && loading) {
         return <HashLoader color={(index % 2 === 0)? '#0AB057' : '#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
     } 

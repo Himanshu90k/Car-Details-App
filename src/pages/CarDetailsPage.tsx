@@ -39,7 +39,7 @@ const CarDetailsPage = () => {
                 })
         }
         
-    }, [])
+    }, [date])
     const carsList = carsContext.cars
     const car = carsList[index]
 
@@ -82,6 +82,13 @@ const CarDetailsPage = () => {
         )
     }   
 
+    if(index < 0 || index > carsList.length - 1) {
+        return (
+            <>
+                <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">Index is out of range</h2>
+            </>
+        )
+    }
 
     return (
         <div className="relative flex flex-col items-center">
