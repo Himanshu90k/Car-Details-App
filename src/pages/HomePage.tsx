@@ -53,8 +53,8 @@ const HomePage: React.FC = () => {
             {(carsList.length === 0 && !loading) &&
                 <>
                     <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">No data to show for this Date.</h2> 
-                    <p className="font-montserrat text-center text-xs">Add Data By clicking <Link to=''><b className="hover:text-customRed">plus(+)</b></Link> 
-                        sign or change the Date by Clicking on the <Link to=''><b className="hover:text-customRed">Date</b></Link>.
+                    <p className="font-montserrat text-center text-xs">Add Data By clicking <Link to='/add-car-details'><b className="hover:text-customRed">plus(+) </b></Link> 
+                        sign or change the Date by Clicking on the <b>Left</b> or <b>Right</b> arrow.
                     </p>
                 </>
             }   
