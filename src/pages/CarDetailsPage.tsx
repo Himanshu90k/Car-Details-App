@@ -1,7 +1,7 @@
 import LeftDateNavigationButton from "../components/LeftDateNavigationButton"
 import RightDateNavigationButton from "../components/RightDateNavigationButton"
 import CarCard from "../components/CarCard"
-import { Link, useParams, useNavigate } from "react-router-dom"
+import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { useCar } from "../context/CarContext"
 import { useEffect, useState } from "react"
 import { HashLoader } from "react-spinners"
@@ -18,7 +18,39 @@ const CarDetailsPage = () => {
         throw new Error("Index is not right")
     }
     const bgColor = (index % 2 === 0)? 'bg-customLightGreen' : 'bg-customLightBlue'
-    
+
+    // get date from the url query
+    const [searchParams, setSearchParams] = useSearchParams()
+    const date = searchParams.get("date")
+
+    // get the cars state and loading value
+    const carsContext = useCar()
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        if(date) {
+            setSearchParams({date: date})
+            carsContext.GetCars(date)
+                .then(result => {
+                    setLoading(result)// returns true or false
+                })
+        }
+        
+    }, [])
+
+    // update the url when the date changes and re-fetch data
+    useEffect(() => {
+        if(date) {
+            setLoading(true)
+            setSearchParams({date: date})
+            carsContext.GetCars(date)
+                .then(result => {
+                    setLoading(result)// returns true or false
+                })
+        }
+    }, [date])
+    const carsList = carsContext.cars
+    const car = carsList[index]
+
     // state for toggling delete-confirmation pop up
     const [toggle, setToggle] = useState(false)
     const handleDeleteToggleAction = () => {
@@ -28,14 +60,6 @@ const CarDetailsPage = () => {
             setToggle(true)
         }
     }
-
-    // get the car data from the context
-    const carsContext = useCar()
-    useEffect(() => {
-        carsContext.GetCars(new Date().toISOString().split('T')[0]);
-    }, []);
-    const carsList = carsContext.cars
-    const car = carsList[index]
 
     // function to delete the car Details
     const navigate = useNavigate()
@@ -51,9 +75,20 @@ const CarDetailsPage = () => {
     }
     
     // Handle loading state - do not remove this otherwise the state will not be loaded and cause crash.
-    if (carsList.length === 0) {
+    if (carsList.length === 0 && loading) {
         return <HashLoader color={(index % 2 === 0)? '#0AB057' : '#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
     }
+
+    if(carsList.length === 0 && !loading) {
+        return (
+            <>
+                <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">No data to show for this Date.</h2> 
+                <p className="font-montserrat text-center text-xs">Add data - <Link to='/add-car-details'><b className="hover:text-customRed">ADD</b></Link> 
+                    <br />or change the Date by returning to homepage - <Link to='/'><b className="hover:text-customRed">Home</b></Link>.
+                </p>
+            </>
+        )
+    }   
     
 
     return (

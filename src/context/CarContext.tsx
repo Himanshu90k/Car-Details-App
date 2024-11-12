@@ -16,6 +16,8 @@ import { toast } from 'react-toastify';
 
 interface CarContextType {
     cars: Car[];
+    dateState: string;
+    setDateState: React.Dispatch<React.SetStateAction<string>>
     GetCars: ((date: string) => Promise<boolean>)
     DeleteCar: ((_id: string) => Promise<void>)
     UpdateCar: ((newCar: Car) => Promise<void>)
@@ -26,6 +28,7 @@ const CarContext = createContext<CarContextType | undefined>(undefined);
 
 export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [cars, setCars] = useState<Car[]>([])
+    const [dateState, setDateState] = useState<string>("")
     const baseUrl = "https://car-details-app-api.onrender.com/api/car-details/";
 
     const AddCar = async (newCar: Car ) => {
@@ -105,7 +108,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
     // }
 
     return (
-        <CarContext.Provider value={{cars, GetCars, DeleteCar, UpdateCar, AddCar}}>
+        <CarContext.Provider value={{cars, dateState, setDateState, GetCars, DeleteCar, UpdateCar, AddCar}}>
             {children}
         </CarContext.Provider>
     )

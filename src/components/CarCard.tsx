@@ -1,5 +1,5 @@
 import { useLocation, Link } from "react-router-dom"
-import { Car } from "../context/CarContext"
+import { Car, useCar } from "../context/CarContext"
 
 interface CarCardProps {
     car?: Car
@@ -17,6 +17,10 @@ const CarCard: React.FC<CarCardProps> = ({car, index}) => {
         throw new Error("no data to show")
     }
 
+    //get the date from the state
+    const carsContext = useCar()
+    const date = carsContext.dateState
+
     //different margin for single view car details page
     const location = useLocation()
     const marginTop = location.pathname === '/'? 'mt-4':'mt-1'
@@ -25,7 +29,7 @@ const CarCard: React.FC<CarCardProps> = ({car, index}) => {
     return (
         dynamicHtmlTag ? 
         (<Link 
-            to={`car-details/${index}`}
+            to={`car-details/${index}/?date=${date}`}
             title='single view car details page'
             className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow ${marginTop}`}
         >

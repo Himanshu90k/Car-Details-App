@@ -9,15 +9,17 @@ import { Link, useSearchParams } from "react-router-dom"
 
 const HomePage: React.FC = () => {
 
+    // keep the track of date
+    const carsContext = useCar()
     const [searchParams, setSearchParams] = useSearchParams()
     const date = searchParams.get("date")
 
     // get the cars state and loading value
-    const carsContext = useCar()
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         setSearchParams({date: `${new Date().toISOString().split('T')[0]}`})
         if(date) {
+            carsContext.setDateState(date)
             carsContext.GetCars(date)
                 .then(result => {
                     setLoading(result)// returns true or false
@@ -26,8 +28,10 @@ const HomePage: React.FC = () => {
         
     }, [])
 
+    // update the url when the date changes and re-fetch data
     useEffect(() => {
         if(date) {
+            carsContext.setDateState(date)
             setLoading(true)
             setSearchParams({date: date})
             carsContext.GetCars(date)
@@ -37,7 +41,6 @@ const HomePage: React.FC = () => {
         }
     }, [date])
     const carsList = carsContext.cars
-    console.log(date)
 
     return (
         <div className="flex flex-col items-center">
