@@ -22,6 +22,10 @@ const CarDetailsPage = () => {
     // get date from the url query
     const [searchParams, setSearchParams] = useSearchParams()
     const date = searchParams.get("date")
+    const dateArray = date?.split("-")
+    if(!dateArray) {
+        throw new Error("date is not correct")
+    }
 
     // get the cars state and loading value
     const carsContext = useCar()
@@ -36,18 +40,6 @@ const CarDetailsPage = () => {
         }
         
     }, [])
-
-    // update the url when the date changes and re-fetch data
-    useEffect(() => {
-        if(date) {
-            setLoading(true)
-            setSearchParams({date: date})
-            carsContext.GetCars(date)
-                .then(result => {
-                    setLoading(result)// returns true or false
-                })
-        }
-    }, [date])
     const carsList = carsContext.cars
     const car = carsList[index]
 
@@ -70,7 +62,7 @@ const CarDetailsPage = () => {
         carsContext.DeleteCar(car._id)
         setToggle(false)
         toast.success("Car Details Deleted")
-        return navigate('/')
+        return navigate(`/?date=${date}`)
 
     }
     
@@ -89,7 +81,7 @@ const CarDetailsPage = () => {
             </>
         )
     }   
-    
+
 
     return (
         <div className="relative flex flex-col items-center">
@@ -101,7 +93,7 @@ const CarDetailsPage = () => {
                 {/* back button */}
                 <Link 
                     title="home page"
-                    to='/'
+                    to={`/?date=${date}`}
                     className="w-24 h-8 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
                 >
                     Back
@@ -114,7 +106,7 @@ const CarDetailsPage = () => {
             <CarCard car={car} index={index} />
 
             {/* current date */}
-            <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">10/10/2024</p>
+            <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">{dateArray[2]}/{dateArray[1]}/{dateArray[0]}</p>
 
             {/* pop up for deleting the car details */}
             <div className={`absolute top-48 z-40 ${toggle? "flex" : "hidden"} flex-col items-center w-72 h-28 rounded-2xl border-solid border-white border-2 bg-black`}>
@@ -186,7 +178,7 @@ const CarDetailsPage = () => {
             <div className="w-84 h-20 rounded-45 bg-black flex justify-center gap-18 items-center my-6">
                 {/* update button */}
                 <Link
-                    to={`/update-details/${index}`}
+                    to={`/update-details/${index}?date=${date}`}
                     className="flex justify-center items-center w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-base text-white"
                 >
                     Update

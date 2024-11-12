@@ -1,4 +1,4 @@
-import { Link, useParams, useNavigate } from "react-router-dom"
+import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useCar } from "../context/CarContext"
 import { Car } from "../context/CarContext"
@@ -39,10 +39,22 @@ const UpdateCarPage: React.FC = () => {
     // car state
     const [car, setCar] = useState<Car | undefined>(undefined)
 
+    // get date from the url query
+    const [searchParams, setSearchParams] = useSearchParams()
+    const date = searchParams.get("date")
+
     // get the cars state and loading value
     const carsContext = useCar()
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        carsContext.GetCars(new Date().toISOString().split('T')[0])
+        if(date) {
+            setSearchParams({date: date})
+            carsContext.GetCars(date)
+                .then(result => {
+                    setLoading(result)// returns true or false
+                })
+        }
+        
     }, [])
     
     useEffect(() => {
@@ -67,11 +79,20 @@ const UpdateCarPage: React.FC = () => {
     }, [carsContext.cars])
 
     // Handle loading state - do not remove this otherwise the state will not be loaded and cause crash.
-    if (!car) {
+    if (!car && loading) {
         return <HashLoader color={(index % 2 === 0)? '#0AB057' : '#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
-    }
+    } 
 
-    
+    if(!car && !loading) {
+        return (
+            <>
+                <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">No data to show for this Date.</h2> 
+                <p className="font-montserrat text-center text-xs">Add data - <Link to='/add-car-details'><b className="hover:text-customRed">ADD</b></Link> 
+                    <br />or change the Date by returning to homepage - <Link to='/'><b className="hover:text-customRed">Home</b></Link>.
+                </p>
+            </>
+        )
+    }
 
     // handle change function to input data in the form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -81,6 +102,9 @@ const UpdateCarPage: React.FC = () => {
 
     // function to update the car Details
     const updateCarDetails = () => {
+        if(!car) {
+            return new Error("car object is not defined")
+        }
         const newCar: Car = {
             _id: car._id,
             date: car.date,
@@ -92,7 +116,7 @@ const UpdateCarPage: React.FC = () => {
             RO_PRW: `${formData.RO_PRW_SELECTION}-${formData.RO_PRW}`
         }
         carsContext.UpdateCar(newCar)
-        return navigate(`/car-details/${id}`)
+        return navigate(`/car-details/${id}/?date=${date}`)
 
     }
 
@@ -266,7 +290,7 @@ const UpdateCarPage: React.FC = () => {
             <div className="w-84 h-20 rounded-45 bg-black flex justify-center gap-18 items-center my-6">
                 {/* back button */}
                 <Link
-                    to={`/car-details/${index}`}
+                    to={`/car-details/${index}?date=${date}`}
                     className="flex justify-center items-center w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-base text-white"
                 >
                     Back
