@@ -84,10 +84,26 @@ const CarDetailsPage = () => {
 
     if(index < 0 || index > carsList.length - 1) {
         return (
-            <>
+            <div className="flex flex-col items-center">
+                {/* navigation */}
+                <div className="flex items-center gap-10 mt-3">
+                    <LeftDateNavigationButton />
+
+                    {/* back button */}
+                    <Link 
+                        title="home page"
+                        to={`/?date=${date}`}
+                        className="w-24 h-8 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
+                    >
+                        Back
+                    </Link>
+
+                    <RightDateNavigationButton />
+                </div>
+    
                 <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">Index is out of range</h2>
                 <p className="font-montserrat text-center text-xs">Return to <Link to='/'> <b className="hover:text-customRed">Home</b></Link></p>
-            </>
+            </div>
         )
     }
 
