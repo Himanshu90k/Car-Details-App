@@ -1,9 +1,11 @@
 import { useSearchParams, useLocation, useParams, useNavigate } from "react-router-dom"
+import { useCar } from "../context/CarContext"
 
 const LeftDateNavigationButton: React.FC = () => {
 
     const location = useLocation()
     const navigate = useNavigate()
+    const carsList = useCar().cars
     let { id } = useParams<{id: string}>()
 
     const [searchParams, setSearchParams] = useSearchParams()
@@ -20,7 +22,10 @@ const LeftDateNavigationButton: React.FC = () => {
         }
 
         if(id) {
-            const index = parseInt(id, 10)
+            let index = parseInt(id, 10) % carsList.length
+            index <= 0? index = carsList.length : index
+            console.log(index)
+            console.log(carsList.length)
             navigate(`/car-details/${index - 1}?date=${dateArray}`)
         }
     }
