@@ -16,7 +16,7 @@ const LeftDateNavigationButton: React.FC = () => {
         if(location.pathname === '/') {
             const dateString = dateArray.split('-')
             let date = dateString.map((dateString) => parseInt(dateString, 10))
-            setSearchParams({date: new Date(date[0], date[1] - 1, date[2] + 2).toISOString().split('T')[0]})
+            setSearchParams({date: new Date(date[0], date[1] - 1, date[2]).toISOString().split('T')[0]})
         }
 
         if(id) {
