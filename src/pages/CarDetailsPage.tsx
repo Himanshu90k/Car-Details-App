@@ -191,7 +191,7 @@ const CarDetailsPage = () => {
                 <div className="absolute top-6 z-10 w-full flex flex-col gap-2 items-center">
                     <h2 className="font-montserrat font-bold text-xl text-customLightBlack">WORK DONE</h2>
                     <div className="w-78 h-76 rounded-2xl bg-white shadow-workBoxShadow">
-                        <p className="font-montserrat font-medium text-xs p-6">
+                        <p className="break-words font-montserrat font-medium text-xs p-6 w-full h-full">
                             {car.work} {/* work done on the car */}
                         </p>
                     </div>

@@ -71,7 +71,7 @@ const CarCard: React.FC<CarCardProps> = ({car, index}) => {
             </div>
 
             <div className="flex justify-center items-center mt-4 w-60 h-6 rounded-45 bg-customRed border border-solid border-white">
-                <p className="font-montserrat font-semibold text-white text-xxs">{car.work}</p>
+                <p className="font-montserrat font-semibold text-white text-xxs">{`${car.work.slice(0, 31)}...`}</p>
             </div>
         </Link>
         
@@ -119,7 +119,7 @@ const CarCard: React.FC<CarCardProps> = ({car, index}) => {
             </div>
 
             <div className="flex justify-center items-center mt-4 w-60 h-6 rounded-45 bg-customRed border border-solid border-white">
-                <p className="font-montserrat font-semibold text-white text-xxs">{car.work}</p>
+                <p className="font-montserrat font-semibold text-white text-xxs">{`${car.work.slice(0, 31)}...`}</p>
             </div>
         </div>
 
