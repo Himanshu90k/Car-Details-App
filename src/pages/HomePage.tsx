@@ -6,6 +6,7 @@ import SearchBar from "../components/SearchBar"
 import { useCar } from "../context/CarContext"
 import { HashLoader } from "react-spinners"
 import { Link, useSearchParams } from "react-router-dom"
+import FooterCredits from "../components/FooterCredits"
 
 const HomePage: React.FC = () => {
 
@@ -57,6 +58,7 @@ const HomePage: React.FC = () => {
                 </>
             }   
             <Footer />
+            <FooterCredits />
         </div>
     )
 }

@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     const location = useLocation()
 
     return (
-        <div className="flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed bottom-2">
+        <div className='flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed bottom-2'>
             
             {/* list view button / return to home button */}
             {location.pathname === '/'? <ListViewButton /> : <ReturnHomeButton />}
