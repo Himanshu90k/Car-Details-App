@@ -20,6 +20,7 @@ interface CarContextType {
     DeleteCar: ((_id: string) => Promise<void>)
     UpdateCar: ((newCar: Car) => Promise<void>)
     AddCar: ((newCar: Car) => Promise<void>)
+    AllCars: ((year: string) => Promise<boolean>)
 }
 
 const CarContext = createContext<CarContextType | undefined>(undefined);
@@ -91,8 +92,23 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
         }
     }
 
+    const AllCars = async (year: string) => {
+        try {
+            const res = await axios.get(`https://car-details-app-api.onrender.com/api/all-details/${year}`)
+            if (res.status === 200) {
+                setCars(res.data)
+                return false
+            }
+            return false
+        } catch (error) {
+            setCars([])
+            console.error(error);
+            return false
+        }
+    }
+
     return (
-        <CarContext.Provider value={{cars, GetCars, DeleteCar, UpdateCar, AddCar}}>
+        <CarContext.Provider value={{cars, GetCars, DeleteCar, UpdateCar, AddCar, AllCars}}>
             {children}
         </CarContext.Provider>
     )

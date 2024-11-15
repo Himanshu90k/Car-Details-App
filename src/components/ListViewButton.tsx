@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const ListViewButton: React.FC = () => {
     return (
         <Link
-            to='/list-view'
+            to={`/list-view/${new Date().toISOString().split('T')[0].slice(0, 4)}`}
             title='list view button'
         >
             {/* list link */}
