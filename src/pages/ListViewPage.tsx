@@ -97,7 +97,8 @@ const ListViewPage = () => {
 
                     {/* work */}
                     <div className="flex flex-col items-center w-45 h-max">
-                        <Link to={'/'}>{carsList.map((car, index) => <p key={index} className="font-inter font-normal hover:text-customRed text-xxs text-center mb-3">{`${car.work? car.work.slice(0, 35): ''}...`}</p>)}</Link>
+                        {carsList.map((car, index) => <p key={index} className="font-inter font-normal hover:text-customRed text-xxs text-center mb-3">
+                            <Link to={`/single-car-details/${car._id}`}>{`${car.work? car.work.slice(0, 35): ''}...`}</Link></p>)}
                     </div>
                 </div>
 

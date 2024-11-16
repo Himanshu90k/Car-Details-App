@@ -16,6 +16,8 @@ import { toast } from 'react-toastify';
 
 interface CarContextType {
     cars: Car[];
+    car: Car;
+    GetCar: ((id: string) => Promise<boolean>)
     GetCars: ((date: string) => Promise<boolean>)
     DeleteCar: ((_id: string) => Promise<void>)
     UpdateCar: ((newCar: Car) => Promise<void>)
@@ -27,6 +29,7 @@ const CarContext = createContext<CarContextType | undefined>(undefined);
 
 export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [cars, setCars] = useState<Car[]>([])
+    const [car, setCar] = useState<Car>({_id: "", date: "", carName: "", carNo: "", mechanicName: "", serviceAdvisor: "", RO_PRW: "", work: ""})
     const baseUrl = "https://car-details-app-api.onrender.com/api/car-details/";
 
     const AddCar = async (newCar: Car ) => {
@@ -107,8 +110,24 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
         }
     }
 
+    const GetCar = async (id: string) => {
+        try {
+            const res = await axios.get(`https://car-details-app-api.onrender.com/api/car-details/${id}`)
+            if (res.status === 200) {
+                setCar(res.data)
+                return false
+            }
+            return false
+
+        } catch (error) {
+            setCar({_id: "", date: "", carName: "", carNo: "", mechanicName: "", serviceAdvisor: "", RO_PRW: "", work: ""})
+            console.error(error)
+            return false
+        }
+    }
+
     return (
-        <CarContext.Provider value={{cars, GetCars, DeleteCar, UpdateCar, AddCar, AllCars}}>
+        <CarContext.Provider value={{cars, car, GetCar, GetCars, DeleteCar, UpdateCar, AddCar, AllCars}}>
             {children}
         </CarContext.Provider>
     )
