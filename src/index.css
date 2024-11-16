@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.customScrollbar::-webkit-scrollbar {
+    height: 10px;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb {
+    background: #fe6565;
+    border-radius: 1rem;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb:hover {
+    background: #ff0404;
+}
+
+@media (max-width: 480px) {
+    .customScrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}

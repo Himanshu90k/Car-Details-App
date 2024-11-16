@@ -44,7 +44,7 @@ const ListViewPage = () => {
             <Footer />
 
             {/* list of the cars */}
-            <div className="relative flex flex-col mt-9 bg-skyBlue rounded-2xl w-86 h-120 overflow-x-scroll">
+            <div className="relative flex flex-col mt-9 bg-skyBlue rounded-2xl w-86 h-120 customScrollbar overflow-x-scroll">
 
                 {/* heading */}
                 <div className="absolute flex items-center gap-0 w-160 my-4 text-center">
@@ -52,14 +52,14 @@ const ListViewPage = () => {
                     <h2 className="font-inter text-xs font-normal w-11.5">Date</h2>
                     <h2 className="font-inter text-xs font-normal w-24">V.Name</h2>
                     <h2 className="font-inter text-xs font-normal w-18">V.Number</h2>
-                    <h2 className="font-inter text-xs font-normal w-24 mr-4 box-content">M.Name</h2>
+                    <h2 className="font-inter text-xs font-normal w-24 box-content">M.Name</h2>
                     <h2 className="font-inter text-xs font-normal w-27">S.Advisor</h2>
                     <h2 className="font-inter text-xs font-normal w-20">r.o - p.r.w</h2>
                     <h2 className="font-inter text-xs font-normal w-45">Work</h2>
                 </div>
 
                 {/* body */}
-                <div className="flex gap-0 w-160 mt-11 overflow-x-scroll overflow-y-scroll">
+                <div className="flex gap-0 w-160 mt-11 scrollbar overflow-y-scroll">
                     {/* s.no */}
                     <div className="w-12 border-r border-solid border-black h-max pb-96">
                         {carsList.map((_, index) => <p key={index} className="font-inter font-normal text-xxs text-center mb-3">{index + 1}</p>)}
@@ -81,7 +81,7 @@ const ListViewPage = () => {
                     </div>
 
                     {/* Mechanic Name */}
-                    <div className="w-24 border-r border-solid border-black mr-4 h-max pb-96">
+                    <div className="w-24 border-r border-solid border-black h-max pb-96">
                         {carsList.map((car, index) => <p key={index} className="font-inter font-normal text-xxs text-center mb-3">{car.mechanicName? car.mechanicName : '-'}</p>)}
                     </div>
 

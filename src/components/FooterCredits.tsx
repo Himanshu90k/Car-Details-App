@@ -1,20 +1,19 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useCar } from "../context/CarContext"
 import { useEffect, useState } from "react"
 
 const FooterCredits:React.FC = () => {
 
     const carsContext = useCar()
+    const location = useLocation()
     const [display, setDisplay] = useState("sticky")
     useEffect(() => {
         const carsList = carsContext.cars
-        if(carsList.length === 0) {
+        if(carsList.length === 0 && location.pathname === '/') {
             setDisplay("fixed")
         } else {
             setDisplay("sticky")
         }
-        console.log(display)
-        console.log(carsList.length)
     },[carsContext.cars])
 
     return (
