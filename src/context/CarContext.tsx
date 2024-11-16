@@ -44,6 +44,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
             toast.error("Car data couldn't be added")
 
         } catch (error) {
+            toast.error("Car data couldn't be added")
             console.error(error);
         }
     }
@@ -60,6 +61,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
             })
 
         } catch (error) {
+            toast.error("The Car Data couldn't be deleted")
             console.error(error);
         }
     }
@@ -69,12 +71,14 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
             const res = await axios.put(`${baseUrl}/${newCar._id}`, newCar)
             if (res.status === 200) {
                 setCars(cars.map( (car) => car._id === newCar._id? newCar : car))
+                setCar(newCar)
                 toast.success("Car Details Updated")
                 return
             }
             toast.error("Car Details could not be Updated.")
             
         } catch (error) {
+            toast.error("Car Details could not be Updated.")
             console.error(error);
         }
     }
