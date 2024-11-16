@@ -9,6 +9,7 @@ import FooterCredits from "../components/FooterCredits"
 
 const ListViewPage = () => {
 
+    // id = year
     const { id } = useParams<{ id: string }>()
     if(!id) {
         throw new Error("id is not defined")

@@ -1,5 +1,3 @@
-import LeftDateNavigationButton from "../components/LeftDateNavigationButton"
-import RightDateNavigationButton from "../components/RightDateNavigationButton"
 import CarCard from "../components/CarCard"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import { useCar } from "../context/CarContext"
@@ -58,7 +56,7 @@ const SingleCarDetailsPage = () => {
 
     if(car._id === "" && !loading) {
         return (
-            <>
+            <div className="flex flex-col items-center">
                 <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">No data to show for this Car ID.</h2> 
                 <p className="font-montserrat text-center text-xs">Add data - <Link to='/add-car-details'><b className="hover:text-customRed">ADD</b></Link> 
                     <br />or change the Date by returning to homepage - <Link to='/'><b className="hover:text-customRed">Home</b></Link>.
@@ -67,16 +65,17 @@ const SingleCarDetailsPage = () => {
                 <Link 
                     title="home page"
                     to={`/list-view/${new Date().toISOString().split('T')[0].slice(0, 4)}`}
-                    className="w-24 h-8 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
+                    className="w-24 h-8 mt-2 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
                 >
                     Back
                 </Link>
-            </>
+            </div>
         )
     }   
 
     //date array
-    const dateArray = car.date.split('T')[0].split('-')
+    const dateString = car.date.split('T')[0]
+    const dateArray = dateString.split('-')
 
     return (
         <div className="relative flex flex-col items-center">
@@ -169,7 +168,7 @@ const SingleCarDetailsPage = () => {
             <div className="w-84 h-20 rounded-45 bg-black flex justify-center gap-18 items-center my-6">
                 {/* update button */}
                 <Link
-                    to={`/update-details/${car._id}?date=${dateArray}`}
+                    to={`/update-car-details/${car._id}`}
                     className="flex justify-center items-center w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-base text-white"
                 >
                     Update
