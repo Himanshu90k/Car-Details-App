@@ -13,7 +13,6 @@ const HomeNavigation: React.FC = () => {
 
     //ref for button
     const monthButtonRef = useRef<HTMLButtonElement>(null)
-    const monthCardRef = useRef<HTMLDivElement>(null)
 
     const [searchParams] = useSearchParams()
     const date = searchParams.get("date")?.split('-')
@@ -22,8 +21,7 @@ const HomeNavigation: React.FC = () => {
 
         const handleClick = (event: MouseEvent) => {
             //check if the date and the card are not in the composed path
-            if ((monthButtonRef.current) && !event.composedPath().includes(monthButtonRef.current) 
-                && (monthCardRef.current) && !event.composedPath().includes(monthCardRef.current)) {
+            if ((monthButtonRef.current) && !event.composedPath().includes(monthButtonRef.current)) {
 
                 setToggleMonthCard(false)
             }
@@ -81,7 +79,7 @@ const HomeNavigation: React.FC = () => {
             >
                 <button type="button" title="day" className="inline-block pr-1 hover:text-customRed">{`${date[2]+suffix}  `}</button> 
                 <button ref={monthButtonRef} onClick={handleToggle} type="button" title="month" className="inline-block hover:text-customRed">{month}</button>
-                {toggleMonthCard? <MonthCard ref={monthCardRef} /> : null}
+                {toggleMonthCard? <MonthCard /> : null}
             </div>
             <RightDateNavigationButton />
             
