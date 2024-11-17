@@ -32,6 +32,7 @@ const LeftDateNavigationButton: React.FC = () => {
 
     return (
         <button
+            title="left"
             type="button"
             onClick={handleChange}
         >

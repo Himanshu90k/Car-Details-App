@@ -1,11 +1,14 @@
 import Month from "./Month"
+import { forwardRef } from "react"
 
-const MonthCard: React.FC = () => {
+type MonthCardProps = {}
+
+const MonthCard = forwardRef<HTMLDivElement, MonthCardProps>((_, ref) => {
 
     const monthsList: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
     return (
-        <div className="absolute -left-6.5 top-1.5 w-38 h-36 rounded-2xl border-2 border-solid border-yearRed bg-white shadow-yearShadow z-10">
+        <div ref={ref} className="absolute -left-4 top-1.5 w-38 h-36 rounded-2xl border-2 border-solid border-yearRed bg-white shadow-yearShadow z-10">
             {/* vertical lines */}
             <div className="flex  justify-center items-center w-full h-full gap-10.5">
                 <hr className="border h-32 border-red-300"/>
@@ -27,6 +30,6 @@ const MonthCard: React.FC = () => {
             </div>
         </div>
     )
-}
+})
 
 export default MonthCard

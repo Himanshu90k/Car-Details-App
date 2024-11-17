@@ -72,9 +72,6 @@ export default {
         workLineShadow: '-4px 4px 4.2px -2px rgba(0, 0, 0, 0.32)',
         formBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.25)',
       },
-      spacing: {
-        '6.5': '25px',
-      },
       gap: {
         8.5: '2.125rem',
         10.5: '2.625rem',

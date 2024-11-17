@@ -30,6 +30,7 @@ const RightDateNavigationButton: React.FC = () => {
 
     return (
         <button
+            title="right"
             type="button"
             onClick={handleChange}
         >
