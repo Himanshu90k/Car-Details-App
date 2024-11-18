@@ -36,6 +36,7 @@ export default {
         22: '5.5rem',
         23: '5.75rem',
         27: '6.75rem',
+        30: '7.5rem',
         33: '8.75rem',
         38: '9.5rem',
         45: '11.625rem',
@@ -51,7 +52,9 @@ export default {
       height: {
         2.5: '0.625rem',
         5.5: '15px',
+        8.5: '2.125rem',
         11.25: '2.875rem',
+        45: '11.5rem',
         76: '18.75rem',
         98: '24.5rem',
         120: '35rem',
@@ -63,6 +66,7 @@ export default {
       },
       borderRadius: {
         '4-xl': '1.25rem',
+        25: '25px',
         45: '45px',
       },
       boxShadow: {
