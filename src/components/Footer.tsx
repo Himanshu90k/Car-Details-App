@@ -1,10 +1,71 @@
-import { useLocation, Link } from "react-router-dom"
+import { useLocation, Link, useSearchParams } from "react-router-dom"
 import ListViewButton from "./ListViewButton"
 import ReturnHomeButton from "./ReturnHomeButton"
+import { useEffect, useState, useRef } from "react"
 
 const Footer: React.FC = () => {
     // to get the current path
     const location = useLocation()
+
+    //toggle year card
+    const [toggleYearCard, setToggleYearCard] = useState<Boolean>(false)
+    const yearCardRef = useRef<HTMLButtonElement>(null)
+
+    const years = Array.from({length: 101}, (_, index) => 2000 + index)
+    const handleToggleYearCard = () => setToggleYearCard(!toggleYearCard)
+
+    //year state
+    const [year, setYear] = useState(new Date().getFullYear())
+
+    //handle year change
+    const [searchParams, setSearchParams] = useSearchParams()
+    const date = searchParams.get('date')
+    const changeYear = (year: string) => {
+        if(date) {
+            setYear(parseInt(year))
+            setSearchParams({date: `${year}${date.slice(4)}`})
+        }
+    }
+
+    //scroll list into view
+    const scrollListRef = useRef<HTMLDivElement>(null)
+    useEffect(() => {
+        if(toggleYearCard === false) {
+            return
+        }
+        const index = years.indexOf(year)
+        
+        if(scrollListRef.current){
+            const yearElement = scrollListRef.current.children[0].children[index]
+            yearElement.scrollIntoView({block: 'center', behavior: 'smooth'})
+        }
+
+    },[toggleYearCard])
+
+    useEffect(() => {
+        if(toggleYearCard === false) {
+            return
+        }
+        const handleClick = (event: MouseEvent ) => {
+            if(yearCardRef.current && !event.composedPath().includes(yearCardRef.current)) {
+                setToggleYearCard(false)
+            }
+        }
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if(event.code === 'Escape') {
+                setToggleYearCard(false)
+            }
+        }
+
+        document.body.addEventListener('click', handleClick)
+        document.body.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            document.body.removeEventListener('click', handleClick)
+            document.body.removeEventListener('keydown', handleKeyDown)
+        }
+    },[toggleYearCard])
 
     return (
         <div className='flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed bottom-2'>
@@ -13,7 +74,7 @@ const Footer: React.FC = () => {
             {location.pathname === '/'? <ListViewButton /> : <ReturnHomeButton />}
 
             {/* add new car details - link */}
-            <Link to='/add-car-details'>
+            <Link title="add-car-details-page" to='/add-car-details'>
                 <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     width="38" 
@@ -40,11 +101,36 @@ const Footer: React.FC = () => {
             {/* change year - button */}
             <button 
                 type="button"
+                onClick={handleToggleYearCard}
+                ref={yearCardRef}
             >
                 <hr className="w-20 h-0.5 border-white"/>
-                <h2 className="text-white font-inter font-normal text-2xl">2024</h2>
+                <h2 className="text-white font-inter font-normal text-2xl">{year}</h2>
                 <hr className="w-20 h-0.5 border-white"/>
             </button>
+
+            {/* car list card */}
+            {toggleYearCard? 
+            <div ref={scrollListRef} className="flex flex-col items-center absolute z-30 bottom-4 right-10 w-29 h-32 bg-white 
+            shadow-yearCardShadow border-3 border-solid border-customRed rounded-2xl">
+                <div className="z-20 flex flex-col items-center h-29 w-29 overflow-y-scroll snap-y snap-mandatory snap-always scrollbar">
+                {years.map(
+                    (year, index) => {
+                        return <button
+                                className="font-inter text-xl font-normal text-black snap-center opacity-50 p-2"
+                                key={index}
+                                type="button"
+                                value={year}
+                                onClick={(e:React.MouseEvent<HTMLButtonElement>) => changeYear(e.currentTarget.value)}
+                            >
+                            {year}
+                    </button>})}
+                </div>
+                <div className="absolute top-10 flex flex-col items-center gap-10 h-10 z-10">
+                    <hr className="w-24 border-customRed border-2" />
+                    <hr className="w-24 border-customRed border-2" />
+                </div>
+            </div> : null}
         </div>
     )
 }

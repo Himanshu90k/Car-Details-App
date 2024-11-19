@@ -85,12 +85,12 @@ const HomeNavigation: React.FC = () => {
     const month = monthList[monthNo - 1]
 
     return (
-        <nav className="flex justify-center items-center gap-2 mt-4">
+        <nav className="flex justify-center items-center gap-4 mt-4">
 
             <LeftDateNavigationButton />
             {/* date navigation */}
             <div 
-                className="font-inter text-base w-32 text-center font-medium relative"
+                className="font-inter text-base w-30 text-center font-medium relative"
             >
                 <button ref={dateButtonRef} onClick={handleDateToggle} type="button" title="day" className="inline-block pr-1 hover:text-customRed">{`${date[2]+suffix}  `}</button> 
                 <button ref={monthButtonRef} onClick={handleMonthToggle} type="button" title="month" className="inline-block hover:text-customRed">{month}</button>

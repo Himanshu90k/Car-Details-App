@@ -36,6 +36,7 @@ export default {
         22: '5.5rem',
         23: '5.75rem',
         27: '6.75rem',
+        29: '7.25rem',
         30: '7.5rem',
         33: '8.75rem',
         38: '9.5rem',
@@ -75,6 +76,7 @@ export default {
         workBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.16)',
         workLineShadow: '-4px 4px 4.2px -2px rgba(0, 0, 0, 0.32)',
         formBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+        yearCardShadow: '-4px 4px 4.6px 0px rgba(0, 0, 0, 0.31)',
       },
       gap: {
         8.5: '2.125rem',
