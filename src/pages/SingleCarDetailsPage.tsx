@@ -33,7 +33,7 @@ const SingleCarDetailsPage = () => {
             carsContext.DeleteCar(car._id)
             setToggle(false)
             toast.success("Car Details Deleted")
-            return navigate(`/list-view/${new Date().toISOString().split('T')[0].slice(0, 4)}`)
+            return navigate(`/list-view/${car.date.split('-')[0]}`)
         } else {
             toast.error("car details are invalid or undefined")
         }
@@ -85,7 +85,7 @@ const SingleCarDetailsPage = () => {
                 {/* back button */}
                 <Link 
                     title="home page"
-                    to={`/list-view/${new Date().toISOString().split('T')[0].slice(0, 4)}`}
+                    to={`/list-view/${car.date.split('-')[0]}`}
                     className="w-24 h-8 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
                 >
                     Back
