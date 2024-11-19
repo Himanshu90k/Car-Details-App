@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 const ReturnHomeButton: React.FC = () => {
+
+    const { id } = useParams<{ id: string}>()
+    if(!id) {
+        throw new Error("year is not right")
+    }
+    const dateString = new Date().toISOString().split('T')[0]
+    const year = `${id}${dateString.slice(4)}`
+
     return (
         <Link
-            to='/'
+            to={`/?date=${year}`}
             title="return to home"
         >
             {/* return from list view */}

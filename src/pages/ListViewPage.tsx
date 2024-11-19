@@ -24,27 +24,22 @@ const ListViewPage = () => {
             })
     },[])
     const carsList = carsContext.cars
-    if(!carsList && loading) {
-        return <HashLoader color={'#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/>;
-    }
-
-    if(!carsList && !loading) {
-        return (
-            <>
-                <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">No data to show</h2> 
-                <p className="font-montserrat text-center text-xs">Add data - <Link to='/add-car-details'><b className="hover:text-customRed">ADD</b></Link> 
-                    <br />or return to homepage - <Link to='/'><b className="hover:text-customRed">Home</b></Link>.
-                </p>
-            </>
-        )
-    }
 
     return (
         <div className="flex flex-col items-center">
             <SearchBar />
+            {(carsList.length === 0 && !loading) && 
+                <>
+                    <h2 className="font-montserrat text-center font-bold text-lg mt-10 text-customRed">No data to show</h2> 
+                    <p className="font-montserrat text-center text-xs">Add data - <Link to='/add-car-details'><b className="hover:text-customRed">ADD</b></Link> 
+                        <br />or return to homepage - <Link to='/'><b className="hover:text-customRed">Home</b></Link>.
+                    </p>
+                </>
+            }
             <Footer />
 
             {/* list of the cars */}
+            {loading? <HashLoader color={'#3B8CCF'} size={100} cssOverride={{display: 'block', margin: '100px auto'}}/> :
             <div className="relative flex flex-col mt-9 bg-skyBlue rounded-2xl w-86 h-120 customScrollbar overflow-x-scroll">
 
                 {/* heading */}
@@ -103,7 +98,7 @@ const ListViewPage = () => {
                     </div>
                 </div>
 
-            </div>
+            </div>}
 
             <FooterCredits />
         </div>

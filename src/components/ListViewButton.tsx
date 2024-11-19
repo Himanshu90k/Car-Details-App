@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 const ListViewButton: React.FC = () => {
+
+    const [searchParams] = useSearchParams()
+    const year = searchParams.get("date")?.split('-')[0]
+
     return (
         <Link
-            to={`/list-view/${new Date().toISOString().split('T')[0].slice(0, 4)}`}
+            to={`/list-view/${year}`}
             title='list view button'
         >
             {/* list link */}
