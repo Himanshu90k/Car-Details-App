@@ -18,11 +18,12 @@ const ListViewPage = () => {
     const carsContext = useCar()
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(()=> {
+        setLoading(true)
         carsContext.AllCars(id)
             .then((result) => {
                 setLoading(result)
             })
-    },[])
+    },[id])
     const carsList = carsContext.cars
 
     return (

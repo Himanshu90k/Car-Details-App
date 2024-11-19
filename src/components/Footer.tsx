@@ -1,4 +1,4 @@
-import { useLocation, Link, useSearchParams } from "react-router-dom"
+import { useLocation, Link, useSearchParams, useNavigate, useParams } from "react-router-dom"
 import ListViewButton from "./ListViewButton"
 import ReturnHomeButton from "./ReturnHomeButton"
 import { useEffect, useState, useRef } from "react"
@@ -6,6 +6,8 @@ import { useEffect, useState, useRef } from "react"
 const Footer: React.FC = () => {
     // to get the current path
     const location = useLocation()
+    const navigate = useNavigate()
+    const { id } = useParams<{ id: string }>()
 
     //toggle year card
     const [toggleYearCard, setToggleYearCard] = useState<Boolean>(false)
@@ -13,17 +15,24 @@ const Footer: React.FC = () => {
 
     const years = Array.from({length: 101}, (_, index) => 2000 + index)
     const handleToggleYearCard = () => setToggleYearCard(!toggleYearCard)
-
-    //year state
-    const [year, setYear] = useState(new Date().getFullYear())
-
-    //handle year change
+    
     const [searchParams, setSearchParams] = useSearchParams()
     const date = searchParams.get('date')
+
+    //year state
+    const initialValue  = id? id : date
+    const [year, setYear] = useState(initialValue? parseInt(initialValue.slice(0,4)) : new Date().getFullYear())
+
+    //handle year change
     const changeYear = (year: string) => {
         if(date) {
             setYear(parseInt(year))
             setSearchParams({date: `${year}${date.slice(4)}`})
+        }
+
+        if(location.pathname !== '/') {
+            setYear(parseInt(year))
+            navigate(`/list-view/${year}`)
         }
     }
 
