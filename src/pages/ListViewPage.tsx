@@ -49,14 +49,14 @@ const ListViewPage = () => {
 
                 {/* heading */}
                 <div className="absolute flex items-center gap-0 w-160 my-4 text-center">
-                    <h2 className="font-inter text-xs font-normal w-12">s.no</h2>
-                    <h2 className="font-inter text-xs font-normal w-11.5">Date</h2>
-                    <h2 className="font-inter text-xs font-normal w-24">V.Name</h2>
-                    <h2 className="font-inter text-xs font-normal w-18">V.Number</h2>
-                    <h2 className="font-inter text-xs font-normal w-24 box-content">M.Name</h2>
-                    <h2 className="font-inter text-xs font-normal w-27">S.Advisor</h2>
-                    <h2 className="font-inter text-xs font-normal w-20">r.o - p.r.w</h2>
-                    <h2 className="font-inter text-xs font-normal w-45">Work</h2>
+                    <h2 className="font-inter text-xs font-semibold w-12">s.no</h2>
+                    <h2 className="font-inter text-xs font-semibold w-11.5">Date</h2>
+                    <h2 className="font-inter text-xs font-semibold w-24">V.Name</h2>
+                    <h2 className="font-inter text-xs font-semibold w-18">V.Number</h2>
+                    <h2 className="font-inter text-xs font-semibold w-24 box-content">M.Name</h2>
+                    <h2 className="font-inter text-xs font-semibold w-27">S.Advisor</h2>
+                    <h2 className="font-inter text-xs font-semibold w-20">r.o - p.r.w</h2>
+                    <h2 className="font-inter text-xs font-semibold w-45">Work</h2>
                 </div>
 
                 {/* body */}
@@ -98,8 +98,8 @@ const ListViewPage = () => {
 
                     {/* work */}
                     <div className="flex flex-col items-center w-45 h-max">
-                        {carsList.map((car, index) => <p key={index} className="font-inter font-normal hover:text-customRed text-xxs text-center mb-3">
-                            <Link to={`/single-car-details/${car._id}`}>{`${car.work? car.work.slice(0, 35): ''}...`}</Link></p>)}
+                        {carsList.map((car, index) => <p key={index} className="font-inter font-semibold text-customRed hover:text-green-600 text-xxs text-center mb-3">
+                            <Link to={`/single-car-details/${car._id}`}>{`${car.work? car.work.slice(0, 25): ''}...`}</Link></p>)}
                     </div>
                 </div>
 

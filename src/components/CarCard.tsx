@@ -23,7 +23,7 @@ const CarCard: React.FC<CarCardProps> = ({car, index}) => {
     //different margin for single view car details page
     const location = useLocation()
     const marginTop = location.pathname === '/'? 'mt-4':'mt-1'
-    const dynamicHtmlTag = location.pathname !== `/car-details/${index}`? true : false
+    const dynamicHtmlTag = location.pathname === `/`? true : false
 
     return (
         dynamicHtmlTag ? 
