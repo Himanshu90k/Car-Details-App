@@ -50,10 +50,15 @@ const Date = () => {
     },[monthString, yearString])
 
     return (
-        <div className="mt-2 mb-2 flex flex-col gap-1 h-32 overflow-y-scroll scrollbar z-20">
+        <div className="mt-2 mb-2 flex flex-col gap-1 h-32 overflow-y-scroll snap-y scroll-pt-8 snap-mandatory snap-always scrollbar z-20">
             {Array.from({length: noOfDays}, (_, index) => {
                 return (
-                    <button key={index} type="button" value={index+1} onClick={(e) => {handleClick(parseInt(e.currentTarget.value))}} className="w-22 h-8.5 bg-customRed hover:bg-black rounded-3xl font-inter text-xl font-medium text-white">
+                    <button 
+                        key={index} 
+                        type="button" 
+                        value={index+1} 
+                        onClick={(e) => {handleClick(parseInt(e.currentTarget.value))}} 
+                        className="w-22 h-8.5 bg-customRed hover:bg-black rounded-3xl font-inter text-xl snap-center font-medium text-white">
                         {index + 1}
                     </button>
                 )
