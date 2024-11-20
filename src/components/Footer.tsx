@@ -76,6 +76,37 @@ const Footer: React.FC = () => {
         }
     },[toggleYearCard])
 
+    // highlight middle year button on scroll
+    const highlightButton = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
+            if(entry.isIntersecting) {
+                entry.target.className = 'font-inter text-2xl font-semibold text-customRed snap-center p-2'
+            } else {
+                entry.target.className = 'font-inter text-xl font-normal text-black snap-center opacity-50 p-2'
+            }
+
+        })
+    }
+    useEffect(() => {
+        if (toggleYearCard === false || scrollListRef.current === null) {
+            return
+        }
+        const observer = new IntersectionObserver(highlightButton, {
+            root: scrollListRef.current.children[0],
+            rootMargin: '-25px 0px',
+            threshold: 1.0
+        })
+        const buttons = scrollListRef.current?.children[0].querySelectorAll('button')
+        if(buttons) {
+            buttons.forEach((button) => observer.observe(button))
+        }
+
+        return () => {
+            buttons.forEach((button) => observer.unobserve(button))
+        }
+
+    },[toggleYearCard])
+
     return (
         <div className='flex justify-center gap-9 items-center bg-black rounded-45 h-20 w-84 z-10 fixed bottom-2'>
             
