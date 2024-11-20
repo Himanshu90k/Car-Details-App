@@ -12,7 +12,7 @@ const Date = () => {
     const month = parseInt(monthString, 10)
     const year = parseInt(yearString, 10)
 
-    const[noOfDays, setNoOfDays] = useState<number>(29)
+    const[noOfDays, setNoOfDays] = useState<number>(31)
 
     const handleClick = (value: number) => {
         const date = searchParams.get("date")

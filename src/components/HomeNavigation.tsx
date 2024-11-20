@@ -95,7 +95,7 @@ const HomeNavigation: React.FC = () => {
                 <button ref={dateButtonRef} onClick={handleDateToggle} type="button" title="day" className="inline-block pr-1 hover:text-customRed">{`${date[2]+suffix}  `}</button> 
                 <button ref={monthButtonRef} onClick={handleMonthToggle} type="button" title="month" className="inline-block hover:text-customRed">{month}</button>
                 {toggleMonthCard? <MonthCard /> : null}
-                {toggleDateCard? <DateCard /> : null}
+                {toggleDateCard? <DateCard toggleState={toggleDateCard} /> : null}
             </div>
             <RightDateNavigationButton />
             
