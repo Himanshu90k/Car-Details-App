@@ -20,9 +20,11 @@ const AddCarDetailsPage: React.FC = () => {
     }
 
     //initial values for the state
+    const dateString = new Date().toISOString().split('T')[0].split('-')
+    const formattedDate = `${dateString[2]}-${dateString[1]}-${dateString[0]}`
     const initialValues: FormData = {
         _id: undefined,
-        date: new Date().toISOString().split('T')[0],
+        date: formattedDate,
         carName: '',
         carNo: '',
         mechanicName: '',
@@ -45,9 +47,11 @@ const AddCarDetailsPage: React.FC = () => {
     const navigate = useNavigate()
     const carsContext = useCar()
     const addCarDetails = () => {
+        const dateString = formData.date.split('T')[0].split('-')
+        const formattedDate = `${dateString[2]}-${dateString[1]}-${dateString[0]}`
         const newCar: Car = {
             _id: "",
-            date: formData.date,
+            date: formattedDate,
             carName: formData.carName,
             carNo: formData.carNo,
             mechanicName: formData.mechanicName,
