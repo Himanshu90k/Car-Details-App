@@ -22,7 +22,7 @@ const AddCarDetailsPage: React.FC = () => {
     //initial values for the state
     const initialValues: FormData = {
         _id: undefined,
-        date: '',
+        date: new Date().toISOString().split('T')[0],
         carName: '',
         carNo: '',
         mechanicName: '',
@@ -47,7 +47,7 @@ const AddCarDetailsPage: React.FC = () => {
     const addCarDetails = () => {
         const newCar: Car = {
             _id: "",
-            date: new Date().toISOString(),
+            date: formData.date,
             carName: formData.carName,
             carNo: formData.carNo,
             mechanicName: formData.mechanicName,
@@ -196,6 +196,22 @@ const AddCarDetailsPage: React.FC = () => {
                                 />
                             </svg>
                         </button>
+                    </div>
+
+                    {/* date */}
+                    <div className="flex items-center mt-2 gap-3">
+                        <label htmlFor="date" className="font-inter text-xs font-normal">Date:</label>
+                        <input
+                            type="text"
+                            name="date"
+                            id="date"
+                            value={formData.date}
+                            placeholder="dd-mm-yyyy"
+                            onChange={handleChange}
+                            required
+                            className="rounded-md h-6 w-28 pl-2 font-inter text-xs opacity-90 font-normal"
+                        >
+                        </input>
                     </div>
 
                 </form>

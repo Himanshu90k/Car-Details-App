@@ -63,9 +63,12 @@ const UpdateCarPage: React.FC = () => {
         //default values for the state
         if(car) {
             const result = car.RO_PRW.split("-")
+            const dateString = car.date.split('T')[0].split('-')
+            const formattedDate = `${dateString[2]}-${dateString[1]}-${dateString[0]}`
+
             const defaultValues: FormData = {
                 _id: car._id,
-                date: car.date,
+                date: formattedDate,
                 carName: car.carName,
                 carNo: car.carNo,
                 mechanicName: car.mechanicName,
@@ -105,9 +108,11 @@ const UpdateCarPage: React.FC = () => {
         if(!car) {
             return new Error("car object is not defined")
         }
+        const dateString = formData.date.split('T')[0].split('-')
+        const formattedDate = `${dateString[2]}-${dateString[1]}-${dateString[0]}`
         const newCar: Car = {
             _id: car._id,
-            date: car.date,
+            date: formattedDate,
             carName: formData.carName,
             carNo: formData.carNo,
             mechanicName: formData.mechanicName,
@@ -257,6 +262,22 @@ const UpdateCarPage: React.FC = () => {
                                 />
                             </svg>
                         </button>
+                    </div>
+
+                    {/* date */}
+                    <div className="flex items-center mt-2 gap-3">
+                        <label htmlFor="date" className="font-inter text-xs font-normal">Date:</label>
+                        <input
+                            type="text"
+                            name="date"
+                            id="date"
+                            value={formData.date}
+                            placeholder="dd-mm-yyyy"
+                            onChange={handleChange}
+                            required
+                            className="rounded-md h-6 w-28 pl-2 font-inter text-xs opacity-90 font-normal"
+                        >
+                        </input>
                     </div>
 
                 </form>

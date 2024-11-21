@@ -42,6 +42,7 @@ const CarDetailsPage = () => {
     }, [])
     const carsList = carsContext.cars
     const car = carsList[index]
+    const formattedDate = car.date.split('T')[0].split('-')
 
     // state for toggling delete-confirmation pop up
     const [toggle, setToggle] = useState(false)
@@ -130,7 +131,7 @@ const CarDetailsPage = () => {
             <CarCard car={car} index={index} />
 
             {/* current date */}
-            <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">{dateArray[2]}/{dateArray[1]}/{dateArray[0]}</p>
+            <p className="font-montserrat font-semibold text-sm text-customGrey my-1.5">{formattedDate[2]}/{formattedDate[1]}/{formattedDate[0]}</p>
 
             {/* pop up for deleting the car details */}
             <div className={`absolute top-48 z-40 ${toggle? "flex" : "hidden"} flex-col items-center w-72 h-28 rounded-2xl border-solid border-white border-2 bg-black`}>

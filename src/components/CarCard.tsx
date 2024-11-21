@@ -25,14 +25,17 @@ const CarCard: React.FC<CarCardProps> = ({car, index}) => {
     const marginTop = location.pathname === '/'? 'mt-4':'mt-1'
     const dynamicHtmlTag = location.pathname === `/`? true : false
 
+    const cardDate = new Date(car.date).toString().split(" ")
+
     return (
         dynamicHtmlTag ? 
-        (<Link 
+        (<div className={`${marginTop}`}>
+        <p className="text-center font-semibold font-inter text-xs">{`${cardDate[2]} ${cardDate[1]} ${cardDate[3]}, ${cardDate[0]}`}</p>
+        <Link 
             to={`car-details/${index}?date=${date}`}
             title='single view car details page'
-            className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow ${marginTop}`}
+            className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow`}
         >
-
             <div className=" flex justify-between items-center mt-2.5 w-80 h-8 rounded-3xl px-8 bg-white">
                 {/* car name */}
                 <h2 className="text-customGrey text-xs font-extrabold font-montserrat">{car.carName}</h2>
@@ -75,7 +78,7 @@ const CarCard: React.FC<CarCardProps> = ({car, index}) => {
             </div>
         </Link>
         
-        ) : 
+        </div>) : 
 
         (<div
             className={`flex flex-col items-center w-86 h-44 rounded-4-xl border-2 border-white border-solids ${bgColor} shadow-cardShadow ${marginTop}`}
