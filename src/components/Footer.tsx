@@ -153,7 +153,7 @@ const Footer: React.FC = () => {
             {toggleYearCard? 
             <div ref={scrollListRef} className="flex flex-col items-center absolute z-30 bottom-4 right-10 w-29 h-32 bg-white 
             shadow-yearCardShadow border-3 border-solid border-customRed rounded-2xl">
-                <div className="z-20 flex flex-col items-center h-29 w-29 overflow-y-scroll snap-y snap-mandatory snap-always scrollbar">
+                <div className="z-20 flex flex-col items-center h-29 w-29 overflow-y-scroll snap-y snap-mandatory scrollbar">
                 {years.map(
                     (year, index) => {
                         return <button

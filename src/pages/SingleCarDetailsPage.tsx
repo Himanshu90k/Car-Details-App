@@ -83,13 +83,13 @@ const SingleCarDetailsPage = () => {
             {/* navigation */}
             <div className="flex items-center gap-10 mt-3">
                 {/* back button */}
-                <Link 
+                <button 
                     title="home page"
-                    to={`/list-view/${car.date.split('-')[0]}`}
+                    onClick={() => navigate(-1)}
                     className="w-24 h-8 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
                 >
                     Back
-                </Link>
+                </button>
             </div>
 
             {/* car details */}

@@ -11,6 +11,7 @@ export default {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
+        customBlack: '#1E1E1E',
         customBlue: '#182C83',
         customGreen: '#0AB057',
         customGrey: '#4D4D4D',
@@ -43,6 +44,7 @@ export default {
         45: '11.625rem',
         57: '14.75rem',
         60: '15rem',
+        65: '16.25rem',
         78: '19.375rem',
         81: '21.25rem',
         84: '22rem',
@@ -77,6 +79,7 @@ export default {
         workLineShadow: '-4px 4px 4.2px -2px rgba(0, 0, 0, 0.32)',
         formBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         yearCardShadow: '-4px 4px 4.6px 0px rgba(0, 0, 0, 0.31)',
+        queryCardShadow: '-4px 4px 4px 0px rgba(0, 0, 0, 0.50)',
       },
       gap: {
         8.5: '2.125rem',

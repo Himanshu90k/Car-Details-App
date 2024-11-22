@@ -28,3 +28,17 @@
         display: none;
     }
 }
+
+.customQueryScrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.customQueryScrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 1rem;
+}
+
+.customQueryScrollbar::-webkit-scrollbar-thumb {
+    background: #E03F3F;
+    border-radius: 1rem;
+}
