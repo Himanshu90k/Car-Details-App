@@ -12,6 +12,15 @@ const UpdateCarPage: React.FC = () => {
 
     const navigate = useNavigate()
 
+    //speech to text
+    const handleSpeechToText = () => {
+        if('SpeechRecognitionAlternative' in Window || 'webkitSpeechRecognition' in Window) {
+            console.log("Speech Recognition is supported")
+        } else {
+            console.log(window.SpeechRecognitionAlternative)
+        }
+    }
+
     // to get the _id of car card using index
     const { id } = useParams<{ id: string }>()
     const index: number|undefined = id? parseInt(id, 10) : undefined
@@ -246,6 +255,7 @@ const UpdateCarPage: React.FC = () => {
                         {/* Microphone Button */}
                         <button
                             type="button"
+                            onClick={handleSpeechToText}
                             className="absolute top-8 left-1.5 z-10"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
