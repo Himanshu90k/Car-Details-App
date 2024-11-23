@@ -85,7 +85,7 @@ const SingleCarDetailsPage = () => {
                 {/* back button */}
                 <button 
                     title="home page"
-                    onClick={() => (history.state['idx'] !== 1 && 0)? navigate(-1) : navigate(`/list-view/${dateArray[0]}`)}
+                    onClick={() => ((history.state['idx'] === 1) || (history.state['idx'] === 0))? navigate(`/list-view/${dateArray[0]}`) : navigate(-1)}
                     className="w-24 h-8 rounded-45 bg-black hover:bg-customRed text-white text-center leading-8 font-montserrat font-bold text-base"
                 >
                     Back
