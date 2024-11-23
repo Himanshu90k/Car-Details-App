@@ -7,8 +7,59 @@ type FormData = Car & {
     RO_PRW_SELECTION: string;
 }
 
+type SpeechRecognitionEvent = Event & {
+    results: SpeechRecognitionResultList;
+    resultIndex: number;
+}
+
+type SpeechRecognitionErrorEvent = Event & {
+    error: string;
+    message: string;
+}
+  
+
 const AddCarDetailsPage: React.FC = () => {
 
+    // Speech to Text
+    
+        const [isListening, setIsListening] = useState(false);
+        const [error, setError] = useState('kill');
+      
+        const startListening = () => {
+            const SpeechRecognition =
+              (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+              setError('Your browser does not support Speech Recognition.');
+              return;
+            }
+        
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US'
+            recognition.interimResults = false
+            recognition.maxAlternatives = 1
+        
+            recognition.onstart = () => {
+              setIsListening(true)
+              setError("asdf")
+            };
+        
+            recognition.onresult = (event: SpeechRecognitionEvent) => {
+              const transcriptResult = event.results[0][0].transcript
+              setFormData({...formData, ['work']: formData.work + " " +  transcriptResult})
+            };
+        
+            recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+              setError(event.error)
+              setIsListening(false)
+            };
+        
+            recognition.onend = () => {
+              setIsListening(false)
+            };
+      
+            recognition.start();
+        };
     // state for toggling submit-confirmation pop up
     const [toggle, setToggle] = useState(false)
     const handleUpdateToggleAction = () => {
@@ -185,6 +236,8 @@ const AddCarDetailsPage: React.FC = () => {
                         <button
                             type="button"
                             className="absolute top-8 left-1.5 z-10"
+                            onClick={startListening} 
+                            disabled={isListening}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path 
