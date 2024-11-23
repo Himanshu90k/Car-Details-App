@@ -2,6 +2,7 @@ import { useState, } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { useCar } from "../context/CarContext"
 import { Car } from "../context/CarContext"
+import { MdCancel } from "react-icons/md"
 
 type FormData = Car & {
     RO_PRW_SELECTION: string;
@@ -22,16 +23,18 @@ const AddCarDetailsPage: React.FC = () => {
 
     // Speech to Text
     
-        const [isListening, setIsListening] = useState(false);
-        const [error, setError] = useState('kill');
+        const [isListening, setIsListening] = useState<boolean>(false);
+        const [error, setError] = useState<string>("");
+        const [errorToggle, setErrorToggle] = useState<boolean>(false)
       
         const startListening = () => {
             const SpeechRecognition =
-              (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+                (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
             
             if (!SpeechRecognition) {
-              setError('Your browser does not support Speech Recognition.');
-              return;
+                setErrorToggle(true)
+                setError("Mic is not supported by browser !!");
+                return;
             }
         
             const recognition = new SpeechRecognition();
@@ -40,22 +43,23 @@ const AddCarDetailsPage: React.FC = () => {
             recognition.maxAlternatives = 1
         
             recognition.onstart = () => {
-              setIsListening(true)
-              setError("asdf")
+                setIsListening(true)
             };
         
             recognition.onresult = (event: SpeechRecognitionEvent) => {
-              const transcriptResult = event.results[0][0].transcript
-              setFormData({...formData, ['work']: formData.work + " " +  transcriptResult})
+                const transcriptResult = event.results[0][0].transcript
+                setFormData({...formData, ['work']: formData.work + " " +  transcriptResult})
             };
         
             recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-              setError(event.error)
-              setIsListening(false)
+                console.log(event.error)
+                setErrorToggle(true)
+                setError("Error in Speech Recognition !!")
+                setIsListening(false)
             };
         
             recognition.onend = () => {
-              setIsListening(false)
+                setIsListening(false)
             };
       
             recognition.start();
@@ -253,6 +257,14 @@ const AddCarDetailsPage: React.FC = () => {
                                 />
                             </svg>
                         </button>
+
+                        {/* error message */}
+                        {errorToggle? 
+                            <div className="w-52 h-5 flex items-center gap-1 justify-center bg-customRed shadow-errorCardShadow absolute top-7 left-8">
+                                <p className="font-montserrat text-xxs font-semibold text-white">{error}</p>
+                                <button onClick={() => setErrorToggle(false)}><MdCancel color="white"/></button>
+                            </div> 
+                        : null}
                     </div>
 
                     {/* date */}

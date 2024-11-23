@@ -29,6 +29,10 @@ const SearchBar: React.FC = () => {
     useEffect(() => {
         const fetchSearchResults = async () => {
             try {
+                if(searchQuery === "") {
+                    setSearchResults([])
+                    return
+                }
                 const result = await axios.get<Car[]>(`https://car-details-app-api.onrender.com/api/search?query=${searchQuery}`)
                 if(result.status === 200) {
                     setSearchResults(result.data)

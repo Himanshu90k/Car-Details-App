@@ -80,6 +80,7 @@ export default {
         formBoxShadow: '4px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         yearCardShadow: '-4px 4px 4.6px 0px rgba(0, 0, 0, 0.31)',
         queryCardShadow: '-4px 4px 4px 0px rgba(0, 0, 0, 0.50)',
+        errorCardShadow: ' -2px 2px 4px 0px rgba(0, 0, 0, 0.50)',
       },
       gap: {
         8.5: '2.125rem',
