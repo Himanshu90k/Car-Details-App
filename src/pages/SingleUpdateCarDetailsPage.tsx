@@ -370,12 +370,12 @@ const SingleUpdateCarDetailsPage: React.FC = () => {
             {/* footer */}
             <div className="w-84 h-20 rounded-45 bg-black flex justify-center gap-18 items-center my-6">
                 {/* back button */}
-                <Link
-                    to={`/single-car-details/${id}`}
+                <button
+                    onClick={() => (history.state['idx'] !== 0)? navigate(-1) : navigate(`/single-car-details/${car._id}`)}
                     className="flex justify-center items-center w-23 h-11.25 rounded-45 border-2 border-solid border-white bg-customRed hover:bg-customGreen font-montserrat font-bold text-base text-white"
                 >
                     Back
-                </Link>
+                </button>
                 {/* submit button */}
                 <button 
                     type="button"
