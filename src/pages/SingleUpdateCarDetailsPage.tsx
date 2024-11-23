@@ -3,14 +3,68 @@ import { useState, useEffect } from "react"
 import { useCar } from "../context/CarContext"
 import { Car } from "../context/CarContext"
 import { HashLoader } from "react-spinners"
+import { MdCancel } from "react-icons/md"
 
 type FormData = Car & {
     RO_PRW_SELECTION: string;
 }
 
+type SpeechRecognitionEvent = Event & {
+    results: SpeechRecognitionResultList;
+    resultIndex: number;
+}
+
+type SpeechRecognitionErrorEvent = Event & {
+    error: string;
+    message: string;
+}
+
 const SingleUpdateCarDetailsPage: React.FC = () => {
 
     const navigate = useNavigate()
+
+    // Speech to Text
+    const [isListening, setIsListening] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
+    const [errorToggle, setErrorToggle] = useState<boolean>(false)
+    
+    const startListening = () => {
+        const SpeechRecognition =
+            (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        
+        if (!SpeechRecognition) {
+            setErrorToggle(true)
+            setError("Mic is not supported by browser !!");
+            return;
+        }
+    
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US'
+        recognition.interimResults = false
+        recognition.maxAlternatives = 1
+    
+        recognition.onstart = () => {
+            setIsListening(true)
+        }
+    
+        recognition.onresult = (event: SpeechRecognitionEvent) => {
+            const transcriptResult = event.results[0][0].transcript
+            setFormData({...formData, ['work']: formData.work + " " +  transcriptResult})
+        }
+    
+        recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+            console.log(event.error)
+            setErrorToggle(true)
+            setError("Error in Speech Recognition !!")
+            setIsListening(false)
+        }
+    
+        recognition.onend = () => {
+            setIsListening(false)
+        }
+    
+        recognition.start();
+    }
 
     // to get the _id 
     const { id } = useParams<{ id: string }>()
@@ -242,6 +296,8 @@ const SingleUpdateCarDetailsPage: React.FC = () => {
                         {/* Microphone Button */}
                         <button
                             type="button"
+                            onClick={startListening}
+                            disabled={isListening}
                             className="absolute top-8 left-1.5 z-10"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
@@ -258,6 +314,14 @@ const SingleUpdateCarDetailsPage: React.FC = () => {
                                 />
                             </svg>
                         </button>
+
+                        {/* error message */}
+                        {errorToggle? 
+                            <div className="w-52 h-5 flex items-center gap-1 justify-center bg-customRed shadow-errorCardShadow absolute top-7 left-8">
+                                <p className="font-montserrat text-xxs font-semibold text-white">{error}</p>
+                                <button onClick={() => setErrorToggle(false)}><MdCancel color="white"/></button>
+                            </div> 
+                        : null}
                     </div>
 
                     {/* date */}

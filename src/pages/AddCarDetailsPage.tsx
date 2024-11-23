@@ -17,53 +17,52 @@ type SpeechRecognitionErrorEvent = Event & {
     error: string;
     message: string;
 }
-  
 
 const AddCarDetailsPage: React.FC = () => {
 
     // Speech to Text
+    const [isListening, setIsListening] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
+    const [errorToggle, setErrorToggle] = useState<boolean>(false)
     
-        const [isListening, setIsListening] = useState<boolean>(false);
-        const [error, setError] = useState<string>("");
-        const [errorToggle, setErrorToggle] = useState<boolean>(false)
-      
-        const startListening = () => {
-            const SpeechRecognition =
-                (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-            
-            if (!SpeechRecognition) {
-                setErrorToggle(true)
-                setError("Mic is not supported by browser !!");
-                return;
-            }
+    const startListening = () => {
+        const SpeechRecognition =
+            (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
         
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'en-US'
-            recognition.interimResults = false
-            recognition.maxAlternatives = 1
-        
-            recognition.onstart = () => {
-                setIsListening(true)
-            };
-        
-            recognition.onresult = (event: SpeechRecognitionEvent) => {
-                const transcriptResult = event.results[0][0].transcript
-                setFormData({...formData, ['work']: formData.work + " " +  transcriptResult})
-            };
-        
-            recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-                console.log(event.error)
-                setErrorToggle(true)
-                setError("Error in Speech Recognition !!")
-                setIsListening(false)
-            };
-        
-            recognition.onend = () => {
-                setIsListening(false)
-            };
-      
-            recognition.start();
-        };
+        if (!SpeechRecognition) {
+            setErrorToggle(true)
+            setError("Mic is not supported by browser !!");
+            return;
+        }
+    
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US'
+        recognition.interimResults = false
+        recognition.maxAlternatives = 1
+    
+        recognition.onstart = () => {
+            setIsListening(true)
+        }
+    
+        recognition.onresult = (event: SpeechRecognitionEvent) => {
+            const transcriptResult = event.results[0][0].transcript
+            setFormData({...formData, ['work']: formData.work + " " +  transcriptResult})
+        }
+    
+        recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+            console.log(event.error)
+            setErrorToggle(true)
+            setError("Error in Speech Recognition !!")
+            setIsListening(false)
+        }
+    
+        recognition.onend = () => {
+            setIsListening(false)
+        }
+    
+        recognition.start();
+    }
+
     // state for toggling submit-confirmation pop up
     const [toggle, setToggle] = useState(false)
     const handleUpdateToggleAction = () => {
