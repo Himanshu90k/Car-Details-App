@@ -33,7 +33,7 @@ const SearchBar: React.FC = () => {
                     setSearchResults([])
                     return
                 }
-                const result = await axios.get<Car[]>(`https://car-details-app-api.onrender.com/api/search?query=${searchQuery}`)
+                const result = await axios.get<Car[]>(`https://car-details-api.devncreatives.com/api/search?query=${searchQuery}`)
                 if(result.status === 200) {
                     setSearchResults(result.data)
                 }else {
