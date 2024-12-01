@@ -30,7 +30,7 @@ const CarContext = createContext<CarContextType | undefined>(undefined);
 export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [cars, setCars] = useState<Car[]>([])
     const [car, setCar] = useState<Car>({_id: "", date: "", carName: "", carNo: "", mechanicName: "", serviceAdvisor: "", RO_PRW: "", work: ""})
-    const baseUrl = "https://car-details-app-api.onrender.com/api/car-details/";
+    const baseUrl = "https://car-details-api.devncreatives.com/api/car-details/";
 
     const AddCar = async (newCar: Car ) => {
         try {
@@ -101,7 +101,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
 
     const AllCars = async (year: string) => {
         try {
-            const res = await axios.get(`https://car-details-app-api.onrender.com/api/all-details/${year}`)
+            const res = await axios.get(`https://car-details-api.devncreatives.com/api/all-details/${year}`)
             if (res.status === 200) {
                 setCars(res.data)
                 return false
@@ -116,7 +116,7 @@ export const CarContextProvider: React.FC<{ children: ReactNode }> = ({children}
 
     const GetCar = async (id: string) => {
         try {
-            const res = await axios.get(`https://car-details-app-api.onrender.com/api/car-details/${id}`)
+            const res = await axios.get(`https://car-details-api.devncreatives.com/api/car-details/${id}`)
             if (res.status === 200) {
                 setCar(res.data)
                 return false
